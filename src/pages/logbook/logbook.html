@@ -8,4 +8,7 @@
 
 <ion-content padding>
   <h2>Logbook</h2>
+  <ul>
+    <li *ngFor="let log of logs | async" >{{log.date}}</li>
+  </ul>
 </ion-content>
