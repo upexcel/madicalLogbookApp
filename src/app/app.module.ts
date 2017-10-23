@@ -2,6 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireOfflineModule } from 'angularfire2-offline';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { LogbookPage } from '../pages/logbook/logbook';
 import { ToLearnPage } from '../pages/to-learn/to-learn';
@@ -11,6 +14,7 @@ import { StatisticsPage } from '../pages/statistics/statistics';
 import { SettingsPage } from '../pages/settings/settings';
 import { AddOperationPage } from '../pages/add-operation/add-operation';
 import { CheckCancel } from '../components/check-cancel/check-cancel';
+import { config } from './app.config';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +33,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(config['firebaseConfig']),
+    AngularFireDatabaseModule,
+    AngularFireOfflineModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ViewController, NavController, Content, PopoverController } from 'ionic-angular';
+import { ViewController, NavController, PopoverController } from 'ionic-angular';
+import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { CheckCancel } from '../../components/check-cancel/check-cancel';
 
 @Component({
@@ -9,16 +10,17 @@ import { CheckCancel } from '../../components/check-cancel/check-cancel';
 })
 export class AddOperationPage implements OnInit {
   @ViewChild('addOperationSlider') addOperationSlider: any;
-  @ViewChild(Content) content: Content;
   slideOneForm: FormGroup;
   slideTwoForm: FormGroup;
   slideThreeForm: FormGroup;
   slideFourForm: FormGroup;
   count: number = 0;
-  task: string = 'Observed';
+  assistance: string = 'Observed';
   specificTaskList = [];
   thingsToLookUp = [];
-  constructor(public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder) {
+  logs: AfoListObservable<any[]>;
+  constructor(public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder) {
+    this.logs = afoDatabase.list('/logs');
   }
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class AddOperationPage implements OnInit {
   }
 
   taskDo(value) {
-    this.task = value;
+    this.assistance = value;
   }
 
   addSpecificTask(task) {
@@ -71,13 +73,22 @@ export class AddOperationPage implements OnInit {
   }
 
   save() {
-    console.log(this.slideOneForm.value)
-    console.log(this.slideTwoForm.value)
-    console.log(this.slideThreeForm.value)
-    console.log(this.slideFourForm.value)
-    console.log(this.thingsToLookUp);
-    console.log(this.specificTaskList);
-    
+    const apiLogData = {
+      date: this.slideOneForm.value['date'],
+      patientNumber: this.slideOneForm.value['patientNumber'],
+      supervisor: this.slideOneForm.value['supervisor'],
+      endTime: this.slideTwoForm.value['endTime'],
+      procedure: this.slideTwoForm.value['procedure'],
+      speciality: this.slideTwoForm.value['speciality'],
+      startTime: this.slideTwoForm.value['startTime'],
+      scrubbedIn: this.slideThreeForm.value['scrubbedIn'],
+      assistance: this.assistance,
+      specificTaskList: this.specificTaskList,
+      rememberText: this.slideFourForm.value['rememberText'],
+      thingsToLookUp: this.thingsToLookUp
+    }
+    this.logs.push(apiLogData);
+    this.viewCtrl.dismiss(true);
   }
 
   cancel() {
@@ -86,11 +97,11 @@ export class AddOperationPage implements OnInit {
       popover.present();
       popover.onDidDismiss((data) => {
         if (data) {
-          this.viewCtrl.dismiss();
+          this.viewCtrl.dismiss(false);
         }
       })
     } else {
-      this.viewCtrl.dismiss();
+      this.viewCtrl.dismiss(false);
     }
   }
 
