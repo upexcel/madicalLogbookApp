@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
+import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { AddOperationPage } from '../add-operation/add-operation';
 
 @Component({
@@ -8,23 +8,23 @@ import { AddOperationPage } from '../add-operation/add-operation';
   templateUrl: 'logbook.html'
 })
 export class LogbookPage implements OnInit {
-  logs: any;
+  logbookLogs: any;
   searchLogText: string = '';
-  apiData: any;
+  logbookLogsApiData: any;
   constructor(public afoDatabase: AngularFireOfflineDatabase, public navCtrl: NavController, public modalCtrl: ModalController) {
     afoDatabase.list('/logs').subscribe((res) => {
-      this.logs = res;
-      this.apiData = res;
+      this.logbookLogs = res;
+      this.logbookLogsApiData = res;
     });
   }
 
   ngOnInit() { }
 
   searchLog(ev: any) {
-    this.logs = this.apiData;
+    this.logbookLogs = this.logbookLogsApiData;
     let val = ev.target.value;
     if (val && val.trim() != '') {
-      this.logs = this.logs.filter((item) => {
+      this.logbookLogs = this.logbookLogs.filter((item) => {
         return (item['procedure'].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
@@ -36,7 +36,7 @@ export class LogbookPage implements OnInit {
 
   onSearchCancel() {
     this.searchLogText = '';
-    this.logs = this.apiData;
+    this.logbookLogs = this.logbookLogsApiData;
   }
 
   trackLogs(index, data)  {
