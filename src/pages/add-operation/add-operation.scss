@@ -1,0 +1,53 @@
+page-add-operation {
+    .form-title {
+        margin: 0px;
+        padding: 1em 0em 1em 8px;
+        background: #f7f4f4;
+        text-align: left;
+        border-bottom: 1px solid #131212;
+    }
+    form {
+        margin-bottom: 1em;
+        .item {
+            padding-left: 8px;
+        }
+    }
+
+    .cancel-button {
+        margin-top: 1em;
+    }
+    .text-left {
+        text-align: left;
+        margin-left: 0.6em;
+    }
+    ion-textarea {
+        border: 1px solid #b1b1b1;
+        margin-bottom: 1em;
+    }
+    .btn-container {
+        margin: 0em 0.5em;
+        button {
+            border-right-width: 1px !important;
+            border-left-width: 1px !important;
+        }
+    }
+    .add-task {
+        margin-top: 1em;
+        ion-input {
+            border: 1px solid #000;
+            border-radius: 9px;
+        }
+        button {
+            min-width: 64px;
+            margin-left: 10px!important;
+            height: 44px!important;
+        }
+    }
+}
+
+ion-slides {
+    height: auto;
+}
+.swiper-pagination-fraction, .swiper-pagination-custom,  .swiper-pagination-bullets {
+    bottom: 0px!important;
+}
