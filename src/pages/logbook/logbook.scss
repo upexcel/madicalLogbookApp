@@ -1,3 +1,32 @@
 page-logbook {
-
+    .add-button {
+        font-weight: bolder;
+    }
+    p {
+        padding: 0px;
+    }
+    .divider-title {
+        margin: 0px;
+        padding: 1em 0em 1em 8px;
+        background: #f7f4f4;
+        text-align: left;
+        border-bottom: 1px solid #a09999;
+    }
+    .logbook-list {
+        ion-item {
+            border-bottom: 0.55px solid #c8c7cc;
+        }
+        ion-avatar{
+            ion-icon {
+                color: #488aff;
+            }
+        }
+        ion-icon {
+            font-size: 3em;
+            color: #777474;
+        }
+    }
+    .logbook-search-box {
+        background: rgba(0, 0, 0, 0.1);
+    }
 }
