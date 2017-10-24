@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { AddOperationPage } from '../add-operation/add-operation';
-
+import { ReportCardPage } from '../report-card/report-card';
 @Component({
   selector: 'page-logbook',
   templateUrl: 'logbook.html'
@@ -31,7 +31,8 @@ export class LogbookPage implements OnInit {
   }
 
   logSelected(logData) {
-    console.log(logData)
+    let reportCardModel = this.modalCtrl.create(ReportCardPage, {'logData': logData});
+    reportCardModel.present();
   }
 
   onSearchCancel() {

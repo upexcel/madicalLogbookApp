@@ -1,0 +1,57 @@
+report-card {
+    .bar-button {
+        font-weight: bold;
+    }
+    .grid {
+        padding: 0px;
+    }
+    .report-header {
+        text-align: center;
+        background: #f8f8f8;
+        padding: 16px 0px;
+        h4, p {
+            padding: 0px;
+            margin: 6px;
+        }
+        ion-icon {
+            font-size: 5em;
+        }
+    }
+    .report-container {
+        ion-col {
+            border: 1px solid #ddd;
+        }
+        p {
+            padding: 0px;
+            margin: 8px 0px 8px 8px;
+        }
+        .title {
+            font-weight: bold;
+        }
+        .title-text {
+            color: #488aff;
+        }
+        ion-badge {
+            margin-left: 8px;
+        }
+    }
+    .report-devider {
+        background: #f8f8f8;
+        ion-col {
+            border: 1px solid #ddd;
+        }
+        p {
+            padding: 0px;
+            margin: 8px 0px 8px 8px;
+            font-weight: bold;
+        }
+    }
+    .check-list {
+        .col {
+            padding: 0px;
+            .item {
+                border: 1px solid #ddd;
+            }
+        }
+    }
+}
