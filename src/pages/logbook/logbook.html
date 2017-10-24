@@ -1,14 +1,30 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Logbook
+      Your Logbook
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addOperation()">
+        <ion-icon class="add-button" name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Logbook</h2>
-  <ul>
-    <li *ngFor="let log of logs | async" >{{log.date}}</li>
-  </ul>
+<ion-content>
+  <p class="divider-title">Filter</p>
+  <ion-searchbar class="logbook-search-box" [(ngModel)]="searchLogText" [showCancelButton]="true" (ionInput)="searchLog($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+  <p class="divider-title">Logbook</p>
+  <ion-list class="logbook-list" *ngIf="logbookLogs">
+    <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (click)="logSelected(log)">
+      <ion-avatar item-start>
+        <ion-icon name="person"></ion-icon>
+      </ion-avatar>
+      <h2>{{log.procedure}}</h2>
+      <p>{{log.date}} &nbsp; {{log.supervisor}}</p>
+      <button ion-button clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
 </ion-content>
