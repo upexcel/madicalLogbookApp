@@ -15,6 +15,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AddOperationPage } from '../pages/add-operation/add-operation';
 import { CheckCancel } from '../components/check-cancel/check-cancel';
 import { config } from './app.config';
+import { ReportCardPage } from '../pages/report-card/report-card';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +30,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatisticsPage,
     SettingsPage,
     AddOperationPage,
-    CheckCancel
+    CheckCancel,
+    ReportCardPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatisticsPage,
     SettingsPage,
     AddOperationPage,
-    CheckCancel
+    CheckCancel,
+    ReportCardPage
   ],
   providers: [
     StatusBar,

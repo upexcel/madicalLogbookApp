@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        Back
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Report Card
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="editLog()">
+        Edit
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="logData" >
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 class="report-header">
+        <ion-icon name="person"></ion-icon>
+        <h4>{{logData.procedure}}</h4>
+        <p>{{logData.supervisor}}</p>
+        <p>{{logData.date}} | {{getTimeDifference()}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-6>
+        <p class="title">Hospital</p>
+        <p class="title-text">Hospital-name</p>
+      </ion-col>
+      <ion-col col-6>
+        <p class="title">Country</p>
+        <p class="title-text">country-name</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-12>
+        <p class="title">Patient ID</p>
+        <p class="title-text">{{logData.patientNumber}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-devider">
+      <ion-col col-12>
+        <p class="title">Surgery details</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-12>
+        <p class="title">Speciality</p>
+        <p class="title-text">{{logData.speciality}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-6>
+        <p class="title">Timings</p>
+        <p class="title-text">{{logData.startTime}} - {{logData.endTime}}</p>
+      </ion-col>
+      <ion-col col-6>
+        <p class="title">Total Time</p>
+        <p class="title-text">{{getTimeDifference()}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-devider">
+      <ion-col col-12>
+        <p class="title">Your Involment</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-12>
+        <p class="title">Level of assistance</p>
+        <p class="title-text">{{scrubbedIn ? 'Scrubbed' : 'Not Scrubbed'}} - {{logData.assistance}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-12>
+        <p class="title">Specific things you did</p>
+        <ion-badge color="primary" *ngFor="let task of logData.specificTaskList">{{task}}</ion-badge>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-12>
+        <p class="title">Additional Notes</p>
+        <p class="title-text">{{logData.rememberText}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-devider">
+      <ion-col col-12>
+        <p class="title">Things to look up</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container check-list">
+      <ion-col col-12>
+        <ion-item *ngFor="let things of logData.thingsToLookUp" >
+          <ion-label>{{things}}</ion-label>
+          <ion-checkbox color="dark" checked="false"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
