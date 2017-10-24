@@ -1,0 +1,12 @@
+page-registration {
+    ion-item, .item {
+        padding: 0px 8px;
+    }
+    .registration-button {
+        padding: 14px;
+    }
+    ion-spinner circle {
+        stroke: #fff;
+        fill: #fff!important;
+      }
+}

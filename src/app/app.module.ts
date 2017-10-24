@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { LogbookPage } from '../pages/logbook/logbook';
 import { ToLearnPage } from '../pages/to-learn/to-learn';
@@ -16,6 +17,9 @@ import { AddOperationPage } from '../pages/add-operation/add-operation';
 import { CheckCancel } from '../components/check-cancel/check-cancel';
 import { config } from './app.config';
 import { ReportCardPage } from '../pages/report-card/report-card';
+import { RegistrationPage } from './../pages/registration/registration';
+
+import { FirebaseService } from '../providers/firebase/firebase-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SettingsPage,
     AddOperationPage,
     CheckCancel,
-    ReportCardPage
+    ReportCardPage,
+    RegistrationPage
   ],
   imports: [
     BrowserModule,
@@ -51,12 +56,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SettingsPage,
     AddOperationPage,
     CheckCancel,
-    ReportCardPage
+    ReportCardPage,
+    RegistrationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AngularFireAuth,
+    FirebaseService
   ]
 })
 export class AppModule { }

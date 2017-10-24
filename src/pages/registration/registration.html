@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Registration</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
+    <form [formGroup]="registrationForm">
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <div class="registration-button">
+        <button ion-button padding block [disabled]="registrationForm.invalid || loding" (click)="submit(registrationForm)">
+          <span *ngIf="!spinner">Submit</span>
+          <ion-spinner *ngIf="spinner" name="bubbles"></ion-spinner>
+        </button>
+        <button ion-button padding block color="secondary">Login</button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>
