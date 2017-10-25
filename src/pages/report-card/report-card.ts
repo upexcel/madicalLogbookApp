@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, ModalController } from 'ionic-angular';
+import { AddOperationPage } from '../add-operation/add-operation';
 
 @Component({
   selector: 'report-card',
@@ -7,7 +8,7 @@ import { NavParams, ViewController } from 'ionic-angular';
 })
 export class ReportCardPage implements OnInit {
   logData: any;
-  constructor(private _viewCtrl: ViewController, public params: NavParams) {
+  constructor(private _viewCtrl: ViewController, public params: NavParams, public modalCtrl: ModalController) {
     this.logData = params.get('logData');
   }
 
@@ -21,5 +22,12 @@ export class ReportCardPage implements OnInit {
 
   dismiss() {
     this._viewCtrl.dismiss();
+  }
+
+  editLog() {
+    let addOperationModel = this.modalCtrl.create(AddOperationPage, { editLogData: this.logData });
+    addOperationModel.present().then(() => {
+      this._viewCtrl.dismiss();
+    });
   }
 }
