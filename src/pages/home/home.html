@@ -9,6 +9,42 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Home Page</h2>
+<ion-content>
+  <ion-row class="report-devider">
+    <ion-col col-12>
+      <p class="title">Dashboard</p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="dashboard-cards">
+    <ion-col col-4>
+      <div class="dashboard-card scrubbed-in">
+        <p class="title">Scrubbed in</p>
+        <p class="title-text">57</p>
+      </div>
+    </ion-col>
+    <ion-col col-4>
+      <div class="dashboard-card operations">
+        <p class="title">Operations</p>
+        <p class="title-text">84</p>
+      </div>
+    </ion-col>
+    <ion-col col-4>
+      <div class="dashboard-card time-spent">
+        <p class="title">Time spent in surgery</p>
+        <p class="title-text">28h</p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-12>
+      <p class="title">Theatre Time (Last 12 months)</p>
+      <canvas #lineCanvas></canvas>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-12 class="home-buttons">
+      <button ion-button large block color="primary" (click)="addOperation()">Add Operation</button>
+      <button ion-button large class="logbook" block color="light" outline (click)="goToLogbook()">View Logbook</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
