@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { AddOperationPage } from '../add-operation/add-operation';
 import { ReportCardPage } from '../report-card/report-card';
+import { FirebaseService } from '../../providers/firebase/firebase-service';
 @Component({
   selector: 'page-logbook',
   templateUrl: 'logbook.html'
@@ -11,8 +12,15 @@ export class LogbookPage implements OnInit {
   logbookLogs: any;
   searchLogText: string = '';
   logbookLogsApiData: any;
-  constructor(public afoDatabase: AngularFireOfflineDatabase, public navCtrl: NavController, public modalCtrl: ModalController) {
-    afoDatabase.list('/logs').subscribe((res) => {
+  userDetails: any;
+  constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public navCtrl: NavController, public modalCtrl: ModalController) {
+    this.userDetails = this._firebaseService.getLoggedUser();
+    afoDatabase.list('/logs', {
+      query: {
+        orderByChild: 'uid',
+        equalTo: this.userDetails['uid']
+      }
+    }).map((arr) => { return arr.reverse() }).subscribe((res) => {
       this.logbookLogs = res;
       this.logbookLogsApiData = res;
     });
@@ -31,7 +39,7 @@ export class LogbookPage implements OnInit {
   }
 
   logSelected(logData) {
-    let reportCardModel = this.modalCtrl.create(ReportCardPage, {'logData': logData});
+    let reportCardModel = this.modalCtrl.create(ReportCardPage, { 'logData': logData });
     reportCardModel.present();
   }
 
@@ -40,7 +48,7 @@ export class LogbookPage implements OnInit {
     this.logbookLogs = this.logbookLogsApiData;
   }
 
-  trackLogs(index, data)  {
+  trackLogs(index, data) {
     return index;
   }
 
