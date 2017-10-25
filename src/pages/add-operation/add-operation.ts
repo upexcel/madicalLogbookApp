@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewController, NavController, PopoverController } from 'ionic-angular';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { CheckCancel } from '../../components/check-cancel/check-cancel';
+import { FirebaseService } from '../../providers/firebase/firebase-service';
 
 @Component({
   selector: 'page-add-operation',
@@ -19,8 +20,10 @@ export class AddOperationPage implements OnInit {
   specificTaskList = [];
   thingsToLookUp = [];
   logs: AfoListObservable<any[]>;
-  constructor(public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder) {
+  userDetails: any;
+  constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder) {
     this.logs = afoDatabase.list('/logs');
+    this.userDetails = this._firebaseService.getLoggedUser();
   }
 
   ngOnInit() {
@@ -85,7 +88,8 @@ export class AddOperationPage implements OnInit {
       assistance: this.assistance,
       specificTaskList: this.specificTaskList,
       rememberText: this.slideFourForm.value['rememberText'],
-      thingsToLookUp: this.thingsToLookUp
+      thingsToLookUp: this.thingsToLookUp,
+      uid: this.userDetails['uid']
     }
     this.logs.push(apiLogData);
     this.viewCtrl.dismiss(true);

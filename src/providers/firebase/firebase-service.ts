@@ -33,6 +33,14 @@ export class FirebaseService {
         }
     }
 
+    getLoggedUser() {
+        if (this.userDetails == null) {
+            return false;
+        } else {
+            return this.userDetails;
+        }
+    }
+
     logout() {
         this._firebaseAuth.auth.signOut();
     }
