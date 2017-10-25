@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Registration</ion-title>
+    <ion-title>Login</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
 <ion-content>
   <ion-list>
     <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
-    <form [formGroup]="registrationForm">
+    <form [formGroup]="loginForm">
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input formControlName="email" type="email"></ion-input>
@@ -18,9 +18,16 @@
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
       <div class="registration-button">
-        <button ion-button padding block [disabled]="registrationForm.invalid || spinner" (click)="submit(registrationForm)">
-          <span *ngIf="!spinner">Submit</span>
+        <button ion-button padding block [disabled]="loginForm.invalid || spinner" (click)="login(loginForm)">
+          <span *ngIf="!spinner">Sign In</span>
           <ion-spinner *ngIf="spinner" name="bubbles"></ion-spinner>
+        </button>
+        <button ion-button padding block [disabled]="googleSpinner" (click)="signInWithGoogle()">
+          <span *ngIf="!googleSpinner">Login with <ion-icon name="logo-google"></ion-icon></span>
+          <ion-spinner *ngIf="googleSpinner" name="bubbles"></ion-spinner>
+        </button>
+        <button ion-button padding block outline (click)="gotoSignUp()">
+          Sign Up
         </button>
       </div>
     </form>

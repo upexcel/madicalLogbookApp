@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
-import { RegistrationPage } from '../pages/registration/registration';
+import { LoginPage } from '../pages/login/login';
 import { FirebaseService } from '../providers/firebase/firebase-service';
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +17,7 @@ export class MyApp {
       if (_firebaseService.isLoggedIn()) {
         this.rootPage = TabsPage;
       } else {
-        this.rootPage = RegistrationPage;
+        this.rootPage = LoginPage;
       }
       statusBar.styleDefault();
       splashScreen.hide();

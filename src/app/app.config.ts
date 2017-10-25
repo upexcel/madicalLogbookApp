@@ -6,5 +6,6 @@ export const config = {
         projectId: "medical-logbook",
         storageBucket: "medical-logbook.appspot.com",
         messagingSenderId: "325280445800"
-    }
+    },
+    'googleWebClientId': '325280445800-qpj697soklhgeh55ocnnb6e4se647ih6.apps.googleusercontent.com'
 };

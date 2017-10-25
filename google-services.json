@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "325280445800",
+    "firebase_url": "https://medical-logbook.firebaseio.com",
+    "project_id": "medical-logbook",
+    "storage_bucket": "medical-logbook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325280445800:android:9cdd3d4f376d2e89",
+        "android_client_info": {
+          "package_name": "com.medicalLogbook.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325280445800-qpj697soklhgeh55ocnnb6e4se647ih6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTTCzAnL7Jx5RE4-2L4AMXhw4oMlJPPZ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
