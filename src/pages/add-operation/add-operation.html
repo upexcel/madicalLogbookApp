@@ -21,7 +21,7 @@
         <form [formGroup]="slideOneForm">
           <ion-item>
             <ion-label floating>Date</ion-label>
-            <ion-datetime formControlName="date" displayFormat="DD/MM/YYYY"></ion-datetime>
+            <ion-datetime formControlName="date" min="{{currentYear}}" max="{{currentYear + 10}}" displayFormat="DD/MM/YYYY"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label floating>Patient Number</ion-label>
@@ -90,7 +90,7 @@
               <button ion-button color="danger" (click)="specificTaskList.splice(i,1)">
                 Delete
               </button>
-              <button ion-button color="primary">
+              <button ion-button color="primary" (click)="singleTask = task; specificTaskList.splice(i,1)">
                 Edit
               </button>
             </ion-item-options>
@@ -126,7 +126,7 @@
               <button ion-button color="danger" (click)="thingsToLookUp.splice(i,1)">
                 Delete
               </button>
-              <button ion-button color="primary">
+              <button ion-button color="primary" (click)="singleThingToLookUp = thing; thingsToLookUp.splice(i,1)">
                 Edit
               </button>
             </ion-item-options>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ViewController, NavController, PopoverController } from 'ionic-angular';
+import { ViewController, NavController, PopoverController, NavParams } from 'ionic-angular';
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { CheckCancel } from '../../components/check-cancel/check-cancel';
 import { FirebaseService } from '../../providers/firebase/firebase-service';
@@ -21,30 +21,58 @@ export class AddOperationPage implements OnInit {
   thingsToLookUp = [];
   logs: AfoListObservable<any[]>;
   userDetails: any;
-  constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder) {
+  editLogData: any;
+  currentYear: number;
+  constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder, public params: NavParams) {
     this.logs = afoDatabase.list('/logs');
     this.userDetails = this._firebaseService.getLoggedUser();
+    this.editLogData = params.get('editLogData');
+    const dateObj = new Date();
+    this.currentYear = dateObj.getFullYear();
   }
 
   ngOnInit() {
     this.addOperationSlider.lockSwipes(true);
-    this.slideOneForm = this.formBuilder.group({
-      date: ['', Validators.compose([Validators.required])],
-      patientNumber: ['', Validators.compose([Validators.required])],
-      supervisor: ['', Validators.compose([Validators.required])]
-    });
-    this.slideTwoForm = this.formBuilder.group({
-      speciality: ['', Validators.compose([Validators.required])],
-      procedure: ['', Validators.compose([Validators.required])],
-      startTime: ['', Validators.compose([Validators.required])],
-      endTime: ['', Validators.compose([Validators.required])]
-    });
-    this.slideThreeForm = this.formBuilder.group({
-      scrubbedIn: [false, Validators.compose([Validators.required])]
-    });
-    this.slideFourForm = this.formBuilder.group({
-      rememberText: ['', Validators.compose([Validators.required])]
-    });
+    if (this.editLogData) {
+      this.slideOneForm = this.formBuilder.group({
+        date: [this.editLogData['date'], Validators.compose([Validators.required])],
+        patientNumber: [this.editLogData['patientNumber'], Validators.compose([Validators.required])],
+        supervisor: [this.editLogData['supervisor'], Validators.compose([Validators.required])]
+      });
+      this.slideTwoForm = this.formBuilder.group({
+        speciality: [this.editLogData['speciality'], Validators.compose([Validators.required])],
+        procedure: [this.editLogData['procedure'], Validators.compose([Validators.required])],
+        startTime: [this.editLogData['startTime'], Validators.compose([Validators.required])],
+        endTime: [this.editLogData['endTime'], Validators.compose([Validators.required])]
+      });
+      this.slideThreeForm = this.formBuilder.group({
+        scrubbedIn: [this.editLogData['scrubbedIn'], Validators.compose([Validators.required])]
+      });
+      this.slideFourForm = this.formBuilder.group({
+        rememberText: [this.editLogData['rememberText'], Validators.compose([Validators.required])]
+      });
+      this.assistance = this.editLogData['assistance'];
+      this.specificTaskList = this.editLogData['specificTaskList'];
+      this.thingsToLookUp = this.editLogData['thingsToLookUp'];
+    } else {
+      this.slideOneForm = this.formBuilder.group({
+        date: ['', Validators.compose([Validators.required])],
+        patientNumber: ['', Validators.compose([Validators.required])],
+        supervisor: ['', Validators.compose([Validators.required])]
+      });
+      this.slideTwoForm = this.formBuilder.group({
+        speciality: ['', Validators.compose([Validators.required])],
+        procedure: ['', Validators.compose([Validators.required])],
+        startTime: ['', Validators.compose([Validators.required])],
+        endTime: ['', Validators.compose([Validators.required])]
+      });
+      this.slideThreeForm = this.formBuilder.group({
+        scrubbedIn: [false, Validators.compose([Validators.required])]
+      });
+      this.slideFourForm = this.formBuilder.group({
+        rememberText: ['', Validators.compose([Validators.required])]
+      });
+    }
   }
 
   next() {
@@ -91,7 +119,11 @@ export class AddOperationPage implements OnInit {
       thingsToLookUp: this.thingsToLookUp,
       uid: this.userDetails['uid']
     }
-    this.logs.push(apiLogData);
+    if (this.editLogData) {
+      this.logs.update(this.editLogData, apiLogData);
+    } else {
+      this.logs.push(apiLogData);
+    }
     this.viewCtrl.dismiss(true);
   }
 
