@@ -13,4 +13,7 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {}
 
+  editprofile() {
+    
+  }
 }
