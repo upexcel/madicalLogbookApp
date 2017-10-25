@@ -6,6 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireOfflineModule } from 'angularfire2-offline';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { LogbookPage } from '../pages/logbook/logbook';
 import { ToLearnPage } from '../pages/to-learn/to-learn';
@@ -18,6 +19,7 @@ import { CheckCancel } from '../components/check-cancel/check-cancel';
 import { config } from './app.config';
 import { ReportCardPage } from '../pages/report-card/report-card';
 import { RegistrationPage } from './../pages/registration/registration';
+import { LoginPage } from './../pages/login/login';
 
 import { FirebaseService } from '../providers/firebase/firebase-service';
 
@@ -36,7 +38,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AddOperationPage,
     CheckCancel,
     ReportCardPage,
-    RegistrationPage
+    RegistrationPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -57,14 +60,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AddOperationPage,
     CheckCancel,
     ReportCardPage,
-    RegistrationPage
+    RegistrationPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireAuth,
-    FirebaseService
+    FirebaseService,
+    GooglePlus
   ]
 })
 export class AppModule { }
