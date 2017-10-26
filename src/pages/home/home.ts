@@ -1,50 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { AddOperationPage } from '../add-operation/add-operation';
-import { Chart } from 'chart.js';
+import { HomeService } from '../../providers/home/home-service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
-  @ViewChild('lineCanvas') lineCanvas;
   lineChart: any;
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController) { }
+  homeData: any;
+  homeSpinner: boolean = true;
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public _homeService: HomeService) { }
 
-  ngOnInit() { }
-
-  ionViewDidLoad() {
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: 'line',
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-          {
-            label: "My First dataset",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false,
-          }
-        ]
-      }
-
+  ngOnInit() {
+    this._homeService.getHomePageData().then((homeData) => {
+      this.homeSpinner = false;
+      this.homeData = homeData;
     });
   }
 

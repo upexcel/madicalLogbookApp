@@ -43,10 +43,14 @@ page-home {
 
     .home-buttons {
         padding: 0px 16px;
+        margin-top: 3em;
         .logbook {
             color: #444343;
             border-color: #444343;
             margin-top: 0.5em; 
         }
+    }
+    .text-center {
+        text-align: center;
     }
 }
