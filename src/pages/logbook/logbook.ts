@@ -21,7 +21,7 @@ export class LogbookPage implements OnInit {
         equalTo: this.userDetails['uid']
       }
     }).subscribe((res) => {
-      this.logbookLogs = res;
+      this.logbookLogs = res.reverse();
       this.logbookLogsApiData = res;
     });
   }
