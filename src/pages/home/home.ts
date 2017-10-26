@@ -8,7 +8,6 @@ import { HomeService } from '../../providers/home/home-service';
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
-  lineChart: any;
   homeData: any;
   homeSpinner: boolean = true;
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public _homeService: HomeService) { }
