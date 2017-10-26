@@ -45,8 +45,10 @@
 
         <form [formGroup]="slideTwoForm">
           <ion-item>
-            <ion-label floating>Speciality</ion-label>
-            <ion-input formControlName="speciality" type="text"></ion-input>
+            <ion-label>Speciality</ion-label>
+            <ion-select formControlName="speciality">
+              <ion-option *ngFor="let Speciality of specialityList" value="{{Speciality.value}}">{{Speciality.name}}</ion-option>
+            </ion-select>
           </ion-item>
           <ion-item>
             <ion-label floating>Procedure</ion-label>

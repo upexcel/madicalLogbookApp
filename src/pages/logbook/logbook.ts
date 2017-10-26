@@ -20,8 +20,8 @@ export class LogbookPage implements OnInit {
         orderByChild: 'uid',
         equalTo: this.userDetails['uid']
       }
-    }).map((arr) => { return arr.reverse() }).subscribe((res) => {
-      this.logbookLogs = res;
+    }).subscribe((res) => {
+      this.logbookLogs = res.reverse();
       this.logbookLogsApiData = res;
     });
   }

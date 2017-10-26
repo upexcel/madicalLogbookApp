@@ -4,6 +4,7 @@ import { ViewController, NavController, PopoverController, NavParams } from 'ion
 import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { CheckCancel } from '../../components/check-cancel/check-cancel';
 import { FirebaseService } from '../../providers/firebase/firebase-service';
+import { config } from '../../app/app.config';
 
 @Component({
   selector: 'page-add-operation',
@@ -23,6 +24,7 @@ export class AddOperationPage implements OnInit {
   userDetails: any;
   editLogData: any;
   currentYear: number;
+  specialityList = config.specialityList;
   constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder, public params: NavParams) {
     this.logs = afoDatabase.list('/logs');
     this.userDetails = this._firebaseService.getLoggedUser();
