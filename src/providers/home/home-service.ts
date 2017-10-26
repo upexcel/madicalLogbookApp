@@ -28,7 +28,6 @@ export class HomeService {
                 let scrubbedIn = 0;
                 let totalTimeInSurgery = 0;
                 res.forEach(log => {
-                    console.log(log)
                     if (log['scrubbedIn']) {
                         scrubbedIn += 1;
                     }
