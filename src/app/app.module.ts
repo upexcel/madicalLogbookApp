@@ -22,6 +22,7 @@ import { RegistrationPage } from './../pages/registration/registration';
 import { LoginPage } from './../pages/login/login';
 
 import { FirebaseService } from '../providers/firebase/firebase-service';
+import { HomeService } from '../providers/home/home-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -69,7 +70,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireAuth,
     FirebaseService,
-    GooglePlus
+    GooglePlus,
+    HomeService
   ]
 })
 export class AppModule { }
