@@ -18,7 +18,7 @@
   <ion-list class="logbook-list" *ngIf="logbookLogs">
     <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (click)="logSelected(log)">
       <ion-avatar item-start>
-        <ion-icon name="person"></ion-icon>
+        <img src="assets/imgs/{{log.speciality}}.svg">
       </ion-avatar>
       <h2>{{log.procedure}}</h2>
       <p>{{log.date}} &nbsp; {{log.supervisor}}</p>
