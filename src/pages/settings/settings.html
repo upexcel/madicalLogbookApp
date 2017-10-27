@@ -12,37 +12,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="userDetails && userSettingData">
     <ion-row>
       <ion-col col-12 class="report-header">
         <ion-icon name="person"></ion-icon>
-        <h4>User Name</h4>
+        <h4>{{userSettingData.name}}</h4>
       </ion-col>
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-6>
         <p class="title">Current Hospital</p>
-        <p class="title-text">Hospital-name</p>
+        <p class="title-text">{{userSettingData.currentHospital}}</p>
       </ion-col>
       <ion-col col-6>
         <p class="title">Current Country</p>
-        <p class="title-text">country-name</p>
+        <p class="title-text">{{userSettingData.currentCountry}}</p>
       </ion-col>
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-12>
         <p class="title">Medical School</p>
-        <p class="title-text">Medical School</p>
+        <p class="title-text">{{userSettingData.medicalSchool}}</p>
       </ion-col>
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-6>
         <p class="title">Start Year</p>
-        <p class="title-text">start year</p>
+        <p class="title-text">{{userSettingData.startYear}}</p>
       </ion-col>
       <ion-col col-6>
         <p class="title">Current Yeart</p>
-        <p class="title-text">5th</p>
+        <p class="title-text">{{currentYear - userSettingData.startYear}}th</p>
       </ion-col>
     </ion-row>
     <ion-row class="report-devider">
@@ -53,8 +53,12 @@
     <ion-row class="report-container check-list">
       <ion-col col-12>
         <ion-item>
-          <ion-label>things</ion-label>
-          <ion-checkbox color="dark" checked="false"></ion-checkbox>
+          <ion-label>General Announcements</ion-label>
+          <ion-checkbox color="dark" [disabled]="true" checked="{{userSettingData.generalAnnouncements}}"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Emails from our partners</ion-label>
+          <ion-checkbox color="dark" [disabled]="true" checked="{{userSettingData.emailFromPartners}}"></ion-checkbox>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -67,7 +71,7 @@
       <ion-col col-12>
         <ion-item>
           <ion-label>Email</ion-label>
-          <ion-input placeholder="Text Input"></ion-input>
+          <ion-input [disabled]="true" [ngModel]="userDetails.email" placeholder="Text Input"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -75,8 +79,16 @@
       <ion-col col-12>
         <ion-item>
           <ion-label>Password</ion-label>
-          <ion-input placeholder="Text Input"></ion-input>
+          <ion-input placeholder="Text Input" type="password" value="password"></ion-input>
         </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-container">
+      <ion-col col-6>
+        <button ion-button block color="secondary" (click)="changePassword()">Change Password</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block color="danger" (click)="logout()">Logout</button>
       </ion-col>
     </ion-row>
   </ion-grid>
