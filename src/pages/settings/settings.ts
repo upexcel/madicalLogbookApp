@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController, PopoverController } from 'ionic-angular';
+import { NavController, ModalController, PopoverController, App } from 'ionic-angular';
 import { FirebaseService } from '../../providers/firebase/firebase-service';
 import { AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { EditSettingsPage } from './../edit-settings/edit-settings';
@@ -15,7 +15,7 @@ export class SettingsPage implements OnInit {
   userDetails: any;
   userSettingData: any;
   currentYear: number;
-  constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) {
     this.userDetails = this._firebaseService.getLoggedUser();
     const dateObject = new Date();
     this.currentYear = dateObject.getFullYear();
@@ -57,7 +57,7 @@ export class SettingsPage implements OnInit {
       console.log(err)
     }).then((data) => {
       localStorage.clear();
-      this.navCtrl.setRoot(LoginPage)
+      this.app.getRootNav().setRoot(LoginPage);
     });
   }
 }
