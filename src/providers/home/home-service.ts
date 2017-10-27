@@ -7,11 +7,10 @@ import { FirebaseService } from '../../providers/firebase/firebase-service';
 @Injectable()
 export class HomeService {
     userDetails: any;
-    constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase) {
-        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));
-    }
+    constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase) {}
 
     getHomePageData() {
+        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));
         return new Promise((resolve, reject) => {
             const homeData = {
                 scrubbedIn: 0,

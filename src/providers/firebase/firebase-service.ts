@@ -33,6 +33,10 @@ export class FirebaseService {
         }
     }
 
+    updatePassword(newPassword) {
+        return this.userDetails.updatePassword(newPassword);
+    }
+
     getLoggedUser() {
         if (this.userDetails == null) {
             return false;
@@ -42,7 +46,7 @@ export class FirebaseService {
     }
 
     logout() {
-        this._firebaseAuth.auth.signOut();
+        return this._firebaseAuth.auth.signOut();
     }
 
     loginUserWithEmailPassword(email, password) {

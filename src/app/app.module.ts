@@ -20,6 +20,8 @@ import { config } from './app.config';
 import { ReportCardPage } from '../pages/report-card/report-card';
 import { RegistrationPage } from './../pages/registration/registration';
 import { LoginPage } from './../pages/login/login';
+import { EditSettingsPage } from '../pages/edit-settings/edit-settings';
+import { ChangePassword } from '../components/change-password/change-password';
 
 import { FirebaseService } from '../providers/firebase/firebase-service';
 import { HomeService } from '../providers/home/home-service';
@@ -40,7 +42,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CheckCancel,
     ReportCardPage,
     RegistrationPage,
-    LoginPage
+    LoginPage,
+    EditSettingsPage,
+    ChangePassword
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CheckCancel,
     ReportCardPage,
     RegistrationPage,
-    LoginPage
+    LoginPage,
+    EditSettingsPage,
+    ChangePassword
   ],
   providers: [
     StatusBar,

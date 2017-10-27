@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left *ngIf="count > 0">
+      <button ion-button icon-only (click)="back()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Update Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="editSettingsForm">
+    <p class="form-title">Profile Details</p>
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Current Hospital</ion-label>
+      <ion-input formControlName="currentHospital" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Current Country</ion-label>
+      <ion-input formControlName="currentCountry" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Medical School</ion-label>
+      <ion-input formControlName="medicalSchool" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Start Year</ion-label>
+      <ion-datetime formControlName="startYear" displayFormat="YYYY"></ion-datetime>
+    </ion-item>
+    <p class="form-title">Email Preferences</p>
+    <ion-item>
+      <ion-label>General Announcements</ion-label>
+      <ion-checkbox formControlName="generalAnnouncements"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email from our partners</ion-label>
+      <ion-checkbox formControlName="emailFromPartners"></ion-checkbox>
+    </ion-item>
+    <p class="form-title">Email Preferences</p>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+  </form>
+  <div class="btn-container">
+    <button ion-button full large color="secondary" [disabled]="editSettingsForm.invalid" (click)="update(editSettingsForm)">Update</button>
+  </div>
+</ion-content>
