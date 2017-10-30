@@ -78,10 +78,16 @@
             <ion-label>Scrubbed in?</ion-label>
             <ion-toggle formControlName="scrubbedIn"></ion-toggle>
           </ion-item>
-          <ion-item>
-            <button ion-button large [outline]="assistance !== 'Observed'" (click)="taskDo('Observed')">Observed</button>
-            <button ion-button large [outline]="assistance !== 'Assisted'" (click)="taskDo('Assisted')">Assisted</button>
-          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <button ion-button block large [outline]="assistance !== 'Observed'" (click)="taskDo('Observed')">Observed</button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button block large [outline]="assistance !== 'Assisted'" (click)="taskDo('Assisted')">Assisted</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
           <p class="form-title">Specific things you did</p>
           <ion-item-sliding *ngFor="let task of specificTaskList; let i=index;">
             <ion-item>
