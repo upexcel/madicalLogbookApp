@@ -6,6 +6,7 @@ import { EditSettingsPage } from './../edit-settings/edit-settings';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginPage } from '../login/login';
 import { ChangePassword } from '../../components/change-password/change-password';
+import { config } from '../../app/app.config';
 
 @Component({
   selector: 'page-settings',
@@ -25,8 +26,11 @@ export class SettingsPage implements OnInit {
         equalTo: this.userDetails['uid']
       }
     }).subscribe((user) => {
+      console.log(user)
       if (user.length > 0) {
         this.userSettingData = user[0];
+      } else {
+        this.userSettingData = config.defaultUserDetails;
       }
       if (user.length == 0) {
         this.editprofile()
