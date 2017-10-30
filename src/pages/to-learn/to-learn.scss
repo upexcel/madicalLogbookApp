@@ -2,6 +2,20 @@ page-to-learn {
     .toolbar-background {
         border-style: none!important;
     }
+    .todos-list {
+        ion-item {
+            border-bottom: 0.55px solid #c8c7cc;
+        }
+        ion-avatar{
+            ion-icon {
+                color: #488aff;
+            }
+        }
+        ion-icon {
+            font-size: 3em;
+            color: #777474;
+        }
+    }
     .content-top-header {
         background: #488aff;
         .col {
