@@ -4,7 +4,7 @@
       Your Profile
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="editprofile()">
+      <button ion-button icon-only (tap)="editprofile()">
         Edit
       </button>
     </ion-buttons>
@@ -85,10 +85,10 @@
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-6>
-        <button ion-button block color="secondary" (click)="changePassword()">Change Password</button>
+        <button ion-button block color="secondary" (tap)="changePassword()">Change Password</button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button block color="danger" (click)="logout()">Logout</button>
+        <button ion-button block color="danger" (tap)="logout()">Logout</button>
       </ion-col>
     </ion-row>
   </ion-grid>

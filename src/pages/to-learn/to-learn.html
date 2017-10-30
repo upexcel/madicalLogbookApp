@@ -7,8 +7,8 @@
   <div class="content-top-header">
     <ion-grid>
       <ion-row>
-        <ion-col col-6 class="heading1" [ngClass]="{'active': !activeHeading}" (click)="activeHeading = false">Remaining</ion-col>
-        <ion-col col-6 class="heading2" [ngClass]="{'active': activeHeading}" (click)="activeHeading = true">Completed</ion-col>
+        <ion-col col-6 class="heading1" [ngClass]="{'active': !activeHeading}" (tap)="activeHeading = false">Remaining</ion-col>
+        <ion-col col-6 class="heading2" [ngClass]="{'active': activeHeading}" (tap)="activeHeading = true">Completed</ion-col>
       </ion-row>
     </ion-grid>
   </div>
@@ -16,7 +16,7 @@
 
 <ion-content>
   <ion-list class="todos-list" *ngIf="todos && activeHeading">
-    <ion-item-sliding *ngFor="let todo of todos">
+    <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
       <ion-item *ngIf="todo.completed">
         <ion-label>{{todo.todo}}</ion-label>
         <ion-checkbox color="dark" [(ngModel)]="todo.completed" (ngModelChange)="todoUpdate(todo)" item-start></ion-checkbox>
@@ -25,14 +25,14 @@
         </ion-avatar>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="danger" (click)="deleteTodo(todo)">
+        <button ion-button color="danger" (tap)="deleteTodo(todo)">
           Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
   <ion-list class="todos-list" *ngIf="todos && !activeHeading">
-    <ion-item-sliding *ngFor="let todo of todos">
+    <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
       <ion-item *ngIf="!todo.completed">
         <ion-label>{{todo.todo}}</ion-label>
         <ion-checkbox color="dark" [(ngModel)]="todo.completed" (ngModelChange)="todoUpdate(todo)" item-start></ion-checkbox>
@@ -41,7 +41,7 @@
         </ion-avatar>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="danger" (click)="deleteTodo(todo)">
+        <button ion-button color="danger" (tap)="deleteTodo(todo)">
           Delete
         </button>
       </ion-item-options>

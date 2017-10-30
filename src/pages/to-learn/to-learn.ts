@@ -23,7 +23,7 @@ export class ToLearnPage implements OnInit {
 
   ngOnInit() {
     this.todoDbSubscription.subscribe((todos) => {
-      this.todos = todos.reverse();
+      this.todos = todos;
     })
   }
 
@@ -33,6 +33,10 @@ export class ToLearnPage implements OnInit {
 
   deleteTodo(todo) {
     this.todoDbSubscription.remove(todo.$key);
+  }
+
+  todoTrack(index, data) {
+    return data['$key'] | index;
   }
 
 }
