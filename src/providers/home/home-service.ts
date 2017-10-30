@@ -4,6 +4,7 @@ import { config } from '../../app/app.config';
 import { AngularFireOfflineDatabase } from 'angularfire2-offline/database'
 import { FirebaseService } from '../../providers/firebase/firebase-service';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Injectable()
 export class HomeService {
@@ -24,6 +25,7 @@ export class HomeService {
                     equalTo: this.userDetails['uid']
                 }
             }).subscribe((res) => {
+                homeData['chartData'] = this.getChartData(res);
                 homeData['favouriteSpecialities'] = this.getFavouriteSpecialities(res);
                 homeData['totalOperations'] = res.length;
                 let scrubbedIn = 0;
@@ -65,6 +67,39 @@ export class HomeService {
             })
         })
         return data;
+    }
+
+    getChartData(data) {
+        const logsData = JSON.parse(JSON.stringify(data));
+        _.forEach(logsData, (value, key) => {
+            value['MonthYear'] = moment(value['date']).format('M/YYYY')
+        })
+        const newData = _.groupBy(logsData, 'MonthYear');
+        _.forEach(newData, (value, key) => {
+            let totalTimeInSurgery = 0;
+            _.forEach(value, (value1, key1) => {
+                totalTimeInSurgery += this.getTimeDifference(value1);
+            })
+            newData[key] = Math.ceil(totalTimeInSurgery / 60);
+        })
+        let months = [];
+        for (var i = 0; i <= 11; i++) {
+            months.push({
+                MonthYear: moment().subtract(i, 'month').format('M/YYYY'),
+                lable: moment().subtract(i, 'month').format('MMM'),
+                count: 0
+            })
+        }
+        months = months.reverse();
+        const finalData = {
+            labels: [],
+            data: []
+        }
+        _.forEach(months, (value, key) => {
+            finalData.labels.push(value['lable'])
+            finalData.data.push(newData[value.MonthYear] || 0)
+        })
+        return finalData;
     }
 
 }
