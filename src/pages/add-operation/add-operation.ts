@@ -146,6 +146,10 @@ export class AddOperationPage implements OnInit {
     })
   }
 
+  preventBlur(event) {
+    event.preventDefault();
+  }
+
   cancel() {
     if (this.count || this.slideOneForm.valid) {
       let popover = this.popoverCtrl.create(CheckCancel);

@@ -105,7 +105,7 @@
           </ion-item-sliding>
           <ion-item class="add-task">
             <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleTask" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right ion-button outline [disabled]="!singleTask || singleTask.length == 0" (click)="addSpecificTask(singleTask); singleTask = ''">Add</button>
+            <button item-right (mousedown)="preventBlur($event)" ion-button outline [disabled]="!singleTask || singleTask.length == 0" (click)="addSpecificTask(singleTask); singleTask = ''">Add</button>
           </ion-item>
         </form>
         <div class="btn-container">
@@ -141,7 +141,7 @@
           </ion-item-sliding>
           <ion-item class="add-task">
             <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleThingToLookUp" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right ion-button outline [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (click)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
+            <button item-right ion-button outline (mousedown)="preventBlur($event)" [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (click)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
           </ion-item>
         </form>
         <div class="btn-container">
