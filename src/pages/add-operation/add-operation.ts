@@ -5,6 +5,7 @@ import { AfoListObservable, AngularFireOfflineDatabase } from 'angularfire2-offl
 import { CheckCancel } from '../../components/check-cancel/check-cancel';
 import { FirebaseService } from '../../providers/firebase/firebase-service';
 import { config } from '../../app/app.config';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-add-operation',
@@ -21,12 +22,14 @@ export class AddOperationPage implements OnInit {
   specificTaskList = [];
   thingsToLookUp = [];
   logs: AfoListObservable<any[]>;
+  todos: AfoListObservable<any[]>;
   userDetails: any;
   editLogData: any;
   currentYear: number;
   specialityList = config.specialityList;
   constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navCtrl: NavController, public formBuilder: FormBuilder, public params: NavParams) {
     this.logs = afoDatabase.list('/logs');
+    this.todos = afoDatabase.list('/todos');
     this.userDetails = this._firebaseService.getLoggedUser();
     this.editLogData = params.get('editLogData');
     const dateObj = new Date();
@@ -125,8 +128,22 @@ export class AddOperationPage implements OnInit {
       this.logs.update(this.editLogData, apiLogData);
     } else {
       this.logs.push(apiLogData);
+      this.addTodos(this.thingsToLookUp)
     }
     this.viewCtrl.dismiss(true);
+  }
+
+  addTodos(todos) {
+    todos = todos.reverse();
+    _.forEach(todos, (val, key) => {
+      this.todos.push({
+        todo: val,
+        completed: false,
+        date: new Date().toString(),
+        uid: this.userDetails['uid'],
+        speciality: this.slideTwoForm.value['speciality'],
+      })
+    })
   }
 
   cancel() {
