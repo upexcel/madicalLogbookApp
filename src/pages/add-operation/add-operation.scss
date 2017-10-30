@@ -1,4 +1,9 @@
 page-add-operation {
+    .header {
+        .button-inner, .icon{
+            font-weight: bold;
+        }
+    }
     .form-title {
         margin: 0px;
         padding: 1em 0em 1em 8px;
@@ -36,6 +41,7 @@ page-add-operation {
         ion-input {
             border: 1px solid #000;
             border-radius: 9px;
+            padding-left: 2px;
         }
         button {
             min-width: 64px;

@@ -18,7 +18,7 @@
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
       <div class="registration-button">
-        <button ion-button padding block [disabled]="registrationForm.invalid || spinner" (click)="submit(registrationForm)">
+        <button ion-button padding block [disabled]="registrationForm.invalid || spinner" (tap)="submit(registrationForm)">
           <span *ngIf="!spinner">Submit</span>
           <ion-spinner *ngIf="spinner" name="bubbles"></ion-spinner>
         </button>

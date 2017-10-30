@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-buttons left *ngIf="count > 0">
-      <button ion-button icon-only (click)="back()">
+      <button ion-button icon-only (tap)="back()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Update Profile</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="dismiss()">Cancel</button>
+      <button ion-button (tap)="dismiss()">Cancel</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -55,6 +55,6 @@
     </ion-item>
   </form>
   <div class="btn-container">
-    <button ion-button full large color="secondary" [disabled]="editSettingsForm.invalid" (click)="update(editSettingsForm)">Update</button>
+    <button ion-button full large color="secondary" [disabled]="editSettingsForm.invalid" (tap)="update(editSettingsForm)">Update</button>
   </div>
 </ion-content>

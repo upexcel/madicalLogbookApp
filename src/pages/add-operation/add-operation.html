@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-buttons left *ngIf="count > 0">
-      <button ion-button icon-only (click)="prev()">
+      <button ion-button icon-only (tap)="prev()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Add an Operation</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="cancel()">Cancel</button>
+      <button ion-button (tap)="cancel()">Cancel</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -33,8 +33,8 @@
           </ion-item>
         </form>
         <div class="btn-container">
-          <button ion-button full large color="primary" (click)="next()" [disabled]="slideOneForm.invalid">Next</button>
-          <button ion-button full large outline color="danger" (click)="cancel()" class="cancel-button">Cancel</button>
+          <button ion-button full large color="primary" (tap)="next()" [disabled]="slideOneForm.invalid">Next</button>
+          <button ion-button full large outline color="danger" (tap)="cancel()" class="cancel-button">Cancel</button>
         </div>
       </ion-list>
     </ion-slide>
@@ -64,7 +64,7 @@
           </ion-item>
         </form>
         <div class="btn-container">
-          <button ion-button large full color="primary" [disabled]="slideTwoForm.invalid" (click)="next()">Next</button>
+          <button ion-button large full color="primary" [disabled]="slideTwoForm.invalid" (tap)="next()">Next</button>
         </div>
       </ion-list>
     </ion-slide>
@@ -78,10 +78,16 @@
             <ion-label>Scrubbed in?</ion-label>
             <ion-toggle formControlName="scrubbedIn"></ion-toggle>
           </ion-item>
-          <ion-item>
-            <button ion-button large [outline]="assistance !== 'Observed'" (click)="taskDo('Observed')">Observed</button>
-            <button ion-button large [outline]="assistance !== 'Assisted'" (click)="taskDo('Assisted')">Assisted</button>
-          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <button ion-button block large [outline]="assistance !== 'Observed'" (tap)="taskDo('Observed')">Observed</button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button block large [outline]="assistance !== 'Assisted'" (tap)="taskDo('Assisted')">Assisted</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
           <p class="form-title">Specific things you did</p>
           <ion-item-sliding *ngFor="let task of specificTaskList; let i=index;">
             <ion-item>
@@ -89,21 +95,21 @@
               <ion-icon name="list" item-right clear></ion-icon>
             </ion-item>
             <ion-item-options side="right">
-              <button ion-button color="danger" (click)="specificTaskList.splice(i,1)">
+              <button ion-button color="danger" (tap)="specificTaskList.splice(i,1)">
                 Delete
               </button>
-              <button ion-button color="primary" (click)="singleTask = task; specificTaskList.splice(i,1)">
+              <button ion-button color="primary" (tap)="singleTask = task; specificTaskList.splice(i,1)">
                 Edit
               </button>
             </ion-item-options>
           </ion-item-sliding>
           <ion-item class="add-task">
             <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleTask" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right ion-button outline [disabled]="!singleTask || singleTask.length == 0" (click)="addSpecificTask(singleTask); singleTask = ''">Add</button>
+            <button item-right (mousedown)="preventBlur($event)" ion-button outline [disabled]="!singleTask || singleTask.length == 0" (tap)="addSpecificTask(singleTask); singleTask = ''">Add</button>
           </ion-item>
         </form>
         <div class="btn-container">
-          <button ion-button full large color="primary" [disabled]="slideThreeForm.invalid" (click)="next()">Next</button>
+          <button ion-button full large color="primary" [disabled]="slideThreeForm.invalid" (tap)="next()">Next</button>
         </div>
       </ion-list>
     </ion-slide>
@@ -125,21 +131,21 @@
               <ion-icon name="list" item-right clear></ion-icon>
             </ion-item>
             <ion-item-options side="right">
-              <button ion-button color="danger" (click)="thingsToLookUp.splice(i,1)">
+              <button ion-button color="danger" (tap)="thingsToLookUp.splice(i,1)">
                 Delete
               </button>
-              <button ion-button color="primary" (click)="singleThingToLookUp = thing; thingsToLookUp.splice(i,1)">
+              <button ion-button color="primary" (tap)="singleThingToLookUp = thing; thingsToLookUp.splice(i,1)">
                 Edit
               </button>
             </ion-item-options>
           </ion-item-sliding>
           <ion-item class="add-task">
             <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleThingToLookUp" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right ion-button outline [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (click)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
+            <button item-right ion-button outline (mousedown)="preventBlur($event)" [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (tap)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
           </ion-item>
         </form>
         <div class="btn-container">
-          <button ion-button full large color="secondary" [disabled]="slideFourForm.invalid" (click)="save()">Finish and Save</button>
+          <button ion-button full large color="secondary" [disabled]="slideFourForm.invalid" (tap)="save()">Finish and Save</button>
         </div>
       </ion-list>
     </ion-slide>

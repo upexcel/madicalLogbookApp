@@ -4,7 +4,7 @@
       Your Logbook
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addOperation()">
+      <button ion-button icon-only (tap)="addOperation()">
         <ion-icon class="add-button" name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +16,7 @@
   <ion-searchbar class="logbook-search-box" [(ngModel)]="searchLogText" [showCancelButton]="true" (ionInput)="searchLog($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
   <p class="divider-title">Logbook</p>
   <ion-list class="logbook-list" *ngIf="logbookLogs">
-    <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (click)="logSelected(log)">
+    <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (tap)="logSelected(log)">
       <ion-avatar item-start>
         <img src="assets/imgs/{{log.speciality}}.svg">
       </ion-avatar>
