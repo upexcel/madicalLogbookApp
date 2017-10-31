@@ -10,13 +10,15 @@
 </ion-header>
 
 <ion-content>
-  <p class="text-center" *ngIf="homeSpinner"><ion-spinner name="bubbles"></ion-spinner></p>
+  <p class="text-center" *ngIf="homeSpinner">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </p>
   <ion-row class="report-devider">
     <ion-col col-12>
       <p class="title">Dashboard</p>
     </ion-col>
   </ion-row>
-  <ion-row class="dashboard-cards" *ngIf="homeData" >
+  <ion-row class="dashboard-cards" *ngIf="homeData">
     <ion-col col-4>
       <div class="dashboard-card operations">
         <p class="title">Operations</p>
@@ -34,6 +36,11 @@
         <p class="title">Time spent in surgery</p>
         <p class="title-text">{{homeData.totalTimeInSurgery}}h</p>
       </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-12>
+      <canvas #lineCanvas></canvas>
     </ion-col>
   </ion-row>
   <ion-row>

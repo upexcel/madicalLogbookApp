@@ -52,7 +52,7 @@ export class EditSettingsPage implements OnInit {
   update(form) {
     if (form.valid) {
       if (this.userSettingData) {
-        this.userDBref.update(this.userSettingData, form.value);
+        this.userDBref.update(this.useruid, form.value);
       } else {
         this.userDBref.push(form.value);
       }
