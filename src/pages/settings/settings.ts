@@ -16,11 +16,15 @@ export class SettingsPage implements OnInit {
   userDetails: any;
   userSettingData: any;
   currentYear: number;
-  constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) {
-    this.userDetails = this._firebaseService.getLoggedUser();
+  constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) { }
+
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));;
     const dateObject = new Date();
     this.currentYear = dateObject.getFullYear();
-    afoDatabase.list('/users', {
+    this.afoDatabase.list('/users', {
       query: {
         orderByChild: 'uid',
         equalTo: this.userDetails['uid']
@@ -39,8 +43,6 @@ export class SettingsPage implements OnInit {
       console.log(err)
     });
   }
-
-  ngOnInit() { }
 
   editprofile() {
     let editSettingsModel = this.modalCtrl.create(EditSettingsPage, { useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData });
