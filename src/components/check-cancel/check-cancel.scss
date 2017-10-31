@@ -6,3 +6,11 @@ ion-list-header {
 p {
     padding: 8px;
 }
+check-cancel {
+    .grid {
+        padding: 0px;
+    }
+    .col {
+        padding: 2px!important;
+    }
+}
