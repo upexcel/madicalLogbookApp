@@ -30,16 +30,5 @@ export const config = {
         medicalSchool: '',
         password: '',
         startYear: '',
-    },
-    chartOption: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    callback: (value, index, values) => {
-                        return `${value}h`;
-                    }
-                }
-            }]
-        }
     }
 };

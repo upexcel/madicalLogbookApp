@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 import { HomeService } from '../../providers/home/home-service';
 import { Chart } from 'chart.js';
-import { config } from '../../app/app.config';
 @Component({
   selector: 'page-statistics',
   templateUrl: 'statistics.html'
@@ -35,7 +34,17 @@ export class StatisticsPage implements OnInit {
             }
           ]
         },
-        options: config.chartOption
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                callback: (value, index, values) => {
+                  return `${value}h`;
+                }
+              }
+            }]
+          }
+        }
       });
     });
   }

@@ -3,7 +3,6 @@ import { ModalController, NavController } from 'ionic-angular';
 import { AddOperationPage } from '../add-operation/add-operation';
 import { HomeService } from '../../providers/home/home-service';
 import { Chart } from 'chart.js';
-import { config } from '../../app/app.config';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -36,7 +35,17 @@ export class HomePage implements OnInit {
             }
           ]
         },
-        options: config.chartOption
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                callback: (value, index, values) => {
+                  return `${value}h`;
+                }
+              }
+            }]
+          }
+        }
       });
     });
   }
