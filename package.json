@@ -29,6 +29,7 @@
         "angularfire2-offline": "4.3.1",
         "chart.js": "^2.7.1",
         "cordova-android": "^6.2.3",
+        "cordova-ios": "^4.4.0",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-ionic-webview": "^1.1.16",
@@ -62,7 +63,8 @@
             }
         },
         "platforms": [
-            "android"
+            "android",
+            "ios"
         ]
     }
 }
