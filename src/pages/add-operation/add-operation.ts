@@ -57,8 +57,8 @@ export class AddOperationPage implements OnInit {
         rememberText: [this.editLogData['rememberText'], Validators.compose([Validators.required])]
       });
       this.assistance = this.editLogData['assistance'];
-      this.specificTaskList = this.editLogData['specificTaskList'];
-      this.thingsToLookUp = this.editLogData['thingsToLookUp'];
+      this.specificTaskList = this.editLogData['specificTaskList'] || [];
+      this.thingsToLookUp = this.editLogData['thingsToLookUp'] || [];
     } else {
       this.slideOneForm = this.formBuilder.group({
         date: ['', Validators.compose([Validators.required])],
@@ -125,7 +125,7 @@ export class AddOperationPage implements OnInit {
       uid: this.userDetails['uid']
     }
     if (this.editLogData) {
-      this.logs.update(this.editLogData, apiLogData);
+      this.logs.update(this.editLogData['$key'], apiLogData);
     } else {
       this.logs.push(apiLogData);
       this.addTodos(this.thingsToLookUp)
