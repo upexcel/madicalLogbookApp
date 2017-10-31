@@ -10,6 +10,7 @@ import { FirebaseService } from '../../providers/firebase/firebase-service';
 export class ChangePassword {
     changePasswordForm: FormGroup;
     errorMessage: string;
+    updateSpinner = false;
     constructor(private _viewCtrl: ViewController, public formBuilder: FormBuilder, public _firebase: FirebaseService) {
     }
     ngOnInit() {
@@ -20,10 +21,12 @@ export class ChangePassword {
 
     changePassword(form) {
         if (form.valid) {
-            console.log(form.value)
+            this.updateSpinner = true;
             this._firebase.updatePassword(form.value['newPassword']).then((data) => {
+                this.updateSpinner = false;
                 this._viewCtrl.dismiss();
-            }).catch(function (error) {
+            }).catch((error) => {
+                this.updateSpinner = false;
                 this.errorMessage = error.message;
             });
         }
