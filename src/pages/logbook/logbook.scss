@@ -1,4 +1,10 @@
 page-logbook {
+    .searchbar-input-container {
+        border: 1px solid #cecece;
+    }
+    .searchbar.searchbar-left-aligned .searchbar-search-icon {
+        margin-top: 7px;
+    }
     .add-button {
         font-weight: bolder;
     }

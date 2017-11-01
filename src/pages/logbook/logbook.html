@@ -1,30 +1,31 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Your Logbook
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (tap)="addOperation()">
-        <ion-icon class="add-button" name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+            Your Logbook
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (tap)="addOperation()">
+                    <ion-icon class="add-button" name="add"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <p class="divider-title">Filter</p>
-  <ion-searchbar class="logbook-search-box" [(ngModel)]="searchLogText" [showCancelButton]="true" (ionInput)="searchLog($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
-  <p class="divider-title">Logbook</p>
-  <ion-list class="logbook-list" *ngIf="logbookLogs">
-    <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (tap)="logSelected(log)">
-      <ion-avatar item-start>
-        <img src="assets/imgs/{{log.speciality}}.svg">
-      </ion-avatar>
-      <h2>{{log.procedure}}</h2>
-      <p>{{log.date}} &nbsp; {{log.supervisor}}</p>
-      <button ion-button clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </button>
-    </ion-item>
-  </ion-list>
+    <p class="divider-title">Filter</p>
+    <ion-searchbar padding class="logbook-search-box" [(ngModel)]="searchLogText" [showCancelButton]="true" (ionInput)="searchLog($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    <p class="divider-title">Logbook</p>
+    <div class="centerAlign" margin-top margin-bottom><ion-badge  *ngIf="logbookLogs && !logbookLogs.length">No Logs Found</ion-badge></div>
+    <ion-list class="logbook-list" *ngIf="logbookLogs">
+        <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (tap)="logSelected(log)">
+            <ion-avatar item-start>
+                <img src="assets/imgs/{{log.speciality}}.svg">
+            </ion-avatar>
+            <h2>{{log.procedure}}</h2>
+            <p>{{log.date}} &nbsp; {{log.supervisor}}</p>
+            <button ion-button clear item-end>
+                <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
 </ion-content>

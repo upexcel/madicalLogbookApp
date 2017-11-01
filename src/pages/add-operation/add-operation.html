@@ -1,154 +1,166 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-buttons left *ngIf="count > 0">
-      <button ion-button icon-only (tap)="prev()">
-        <ion-icon name="arrow-round-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Add an Operation</ion-title>
-    <ion-buttons end>
-      <button ion-button (tap)="cancel()">Cancel</button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-buttons left *ngIf="count > 0">
+                     <button ion-button icon-only (tap)="prev()">
+                <ion-icon name="arrow-round-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Add an Operation</ion-title>
+        <ion-buttons end>
+            <button ion-button (tap)="cancel()">Cancel</button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-slides pager #addOperationSlider>
+    <ion-slides pager='false' #addOperationSlider>
 
-    <ion-slide>
-      <p class="form-title">Housekeeping</p>
-      <ion-list>
-        <form [formGroup]="slideOneForm">
-          <ion-item>
-            <ion-label floating>Date</ion-label>
-            <ion-datetime formControlName="date" min="{{currentYear}}" max="{{currentYear + 10}}" displayFormat="DD/MM/YYYY"></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Patient Number</ion-label>
-            <ion-input formControlName="patientNumber" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Supervisor</ion-label>
-            <ion-input formControlName="supervisor" type="text"></ion-input>
-          </ion-item>
-        </form>
-        <div class="btn-container">
-          <button ion-button full large color="primary" (tap)="next()" [disabled]="slideOneForm.invalid">Next</button>
-          <button ion-button full large outline color="danger" (tap)="cancel()" class="cancel-button">Cancel</button>
-        </div>
-      </ion-list>
+                <ion-slide>
+            <p class="form-title">Housekeeping</p>
+            <ion-list>
+                <form [formGroup]="slideOneForm">
+                    <ion-item>
+                        <ion-label floating>Date</ion-label>
+                        <ion-datetime formControlName="date" min="{{currentYear}}" max="{{currentYear + 10}}" displayFormat="DD/MM/YYYY"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Patient Number</ion-label>
+                        <ion-input formControlName="patientNumber" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Supervisor</ion-label>
+                        <ion-input formControlName="supervisor" type="text"></ion-input>
+                    </ion-item>
+                </form>
+                <div class="btn-container">
+                    <button ion-button full large color="primary" (tap)="next()" [disabled]="slideOneForm.invalid">Next</button>
+                    <button ion-button full large outline color="danger" (tap)="cancel()" class="cancel-button">Cancel</button>
+                </div>
+                <div margin-top class="centerAlign">
+                    <div *ngFor="let data of [1,2,3,4] ; let i=index;" class="pagination-bullet" [ngClass]="{'pagination-bullet-active':(i==0)? true : false}"></div>
+                </div>
+            </ion-list>
+        </ion-slide>
+
+        <ion-slide>
+            <p class="form-title">Surgery Details</p>
+            <ion-list>
+
+                <form [formGroup]="slideTwoForm">
+                    <ion-item>
+                        <ion-label>Speciality</ion-label>
+                        <ion-select formControlName="speciality">
+                            <ion-option *ngFor="let Speciality of specialityList" value="{{Speciality.value}}">{{Speciality.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Procedure</ion-label>
+                        <ion-input formControlName="procedure" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Start Time</ion-label>
+                        <ion-datetime formControlName="startTime" displayFormat="HH:mm"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>End Time</ion-label>
+                        <ion-datetime formControlName="endTime" displayFormat="HH:mm"></ion-datetime>
+                    </ion-item>
+                </form>
+                <div class="btn-container">
+                    <button ion-button large full color="primary" [disabled]="slideTwoForm.invalid" (tap)="next()">Next</button>
+                </div>
+                <div margin-top class="centerAlign">
+                    <div *ngFor="let data of [1,2,3,4] ; let i=index;" class="pagination-bullet" [ngClass]="{'pagination-bullet-active':(i==1)? true : false}"></div>
+                </div>
+            </ion-list>
+        </ion-slide>
+
+        <ion-slide>
+            <p class="form-title">Your Involvement</p>
+            <ion-list>
+
+                <form [formGroup]="slideThreeForm">
+                    <ion-item>
+                        <ion-label>Scrubbed in?</ion-label>
+                        <ion-toggle formControlName="scrubbedIn"></ion-toggle>
+                    </ion-item>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-6>
+                                <button ion-button block large [outline]="assistance !== 'Observed'" (tap)="taskDo('Observed')">Observed</button>
+                            </ion-col>
+                            <ion-col col-6>
+                                <button ion-button block large [outline]="assistance !== 'Assisted'" (tap)="taskDo('Assisted')">Assisted</button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <p class="form-title">Specific things you did</p>
+                    <ion-item-sliding *ngFor="let task of specificTaskList; let i=index;">
+                        <ion-item>
+                            <span>{{task}}</span>
+                            <ion-icon name="list" item-right clear></ion-icon>
+                        </ion-item>
+                        <ion-item-options side="right">
+                            <button ion-button color="danger" (tap)="specificTaskList.splice(i,1)">
+                                Delete
+                            </button>
+                            <button ion-button color="primary" (tap)="singleTask = task; specificTaskList.splice(i,1)">
+                                    Edit
+                        </button>
+                    </ion-item-options>
+                </ion-item-sliding>
+                <ion-item class="add-task">
+                    <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleTask" [ngModelOptions]="{standalone: true}"></ion-input>
+                    <button item-right (touchend)="preventBlur($event)" ion-button outline [disabled]="!singleTask || singleTask.length == 0" (tap)="addSpecificTask(singleTask); singleTask = ''">Add</button>
+                </ion-item>
+            </form>
+            <div class="btn-container">
+                <button ion-button full large color="primary" [disabled]="slideThreeForm.invalid" (tap)="next()">Next</button>
+            </div>
+            <div margin-top class="centerAlign">
+                <div *ngFor="let data of [1,2,3,4] ; let i=index;" class="pagination-bullet" [ngClass]="{'pagination-bullet-active':(i==2)? true : false}"></div>
+            </div>
+        </ion-list>
     </ion-slide>
 
     <ion-slide>
-      <p class="form-title">Surgery Details</p>
-      <ion-list>
-
-        <form [formGroup]="slideTwoForm">
-          <ion-item>
-            <ion-label>Speciality</ion-label>
-            <ion-select formControlName="speciality">
-              <ion-option *ngFor="let Speciality of specialityList" value="{{Speciality.value}}">{{Speciality.name}}</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Procedure</ion-label>
-            <ion-input formControlName="procedure" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Start Time</ion-label>
-            <ion-datetime formControlName="startTime" displayFormat="HH:mm"></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>End Time</ion-label>
-            <ion-datetime formControlName="endTime" displayFormat="HH:mm"></ion-datetime>
-          </ion-item>
-        </form>
-        <div class="btn-container">
-          <button ion-button large full color="primary" [disabled]="slideTwoForm.invalid" (tap)="next()">Next</button>
-        </div>
-      </ion-list>
-    </ion-slide>
-
-    <ion-slide>
-      <p class="form-title">Your Involvement</p>
-      <ion-list>
-
-        <form [formGroup]="slideThreeForm">
-          <ion-item>
-            <ion-label>Scrubbed in?</ion-label>
-            <ion-toggle formControlName="scrubbedIn"></ion-toggle>
-          </ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col col-6>
-                <button ion-button block large [outline]="assistance !== 'Observed'" (tap)="taskDo('Observed')">Observed</button>
-              </ion-col>
-              <ion-col col-6>
-                <button ion-button block large [outline]="assistance !== 'Assisted'" (tap)="taskDo('Assisted')">Assisted</button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <p class="form-title">Specific things you did</p>
-          <ion-item-sliding *ngFor="let task of specificTaskList; let i=index;">
-            <ion-item>
-              <span>{{task}}</span>
-              <ion-icon name="list" item-right clear></ion-icon>
+        <p class="form-title">Addition Notes</p>
+        <ion-list>
+            <p class="text-left">At interview, they might ask you what you learned from particular operations. It's nice to have a bit more info which
+                you can put over here. It'll also help you remember what each procedure involved.</p>
+            <p class="text-left">Remember, you can edit anything whenever you like.</p>
+            <form [formGroup]="slideFourForm">
+                <ion-item>
+                    <ion-textarea placeholder="Eg: Steps of the procedure, things you learnt, intersting nuggets from the consultant etc." formControlName="rememberText"></ion-textarea>
+                </ion-item>
+                <p class="form-title">Things to look up</p>
+                <ion-item-sliding *ngFor="let thing of thingsToLookUp; let i=index;">
+                    <ion-item>
+                        <span>{{thing}}</span>
+                        <ion-icon name="list" item-right clear></ion-icon>
+                    </ion-item>
+                    <ion-item-options side="right">
+                        <button ion-button color="danger" (tap)="thingsToLookUp.splice(i,1)">
+                            Delete
+                        </button>
+                        <button ion-button color="primary" (tap)="singleThingToLookUp = thing; thingsToLookUp.splice(i,1)">
+                                Edit
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-item class="add-task">
+                <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleThingToLookUp" [ngModelOptions]="{standalone: true}"></ion-input>
+                <button item-right ion-button outline (touchend)="preventBlur($event)" [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (tap)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
             </ion-item>
-            <ion-item-options side="right">
-              <button ion-button color="danger" (tap)="specificTaskList.splice(i,1)">
-                Delete
-              </button>
-              <button ion-button color="primary" (tap)="singleTask = task; specificTaskList.splice(i,1)">
-                Edit
-              </button>
-            </ion-item-options>
-          </ion-item-sliding>
-          <ion-item class="add-task">
-            <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleTask" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right (touchend)="preventBlur($event)" ion-button outline [disabled]="!singleTask || singleTask.length == 0" (tap)="addSpecificTask(singleTask); singleTask = ''">Add</button>
-          </ion-item>
         </form>
         <div class="btn-container">
-          <button ion-button full large color="primary" [disabled]="slideThreeForm.invalid" (tap)="next()">Next</button>
+            <button ion-button full large color="secondary" [disabled]="slideFourForm.invalid" (tap)="save()">Finish and Save</button>
         </div>
-      </ion-list>
-    </ion-slide>
-
-    <ion-slide>
-      <p class="form-title">Addition Notes</p>
-      <ion-list>
-        <p class="text-left">At interview, they might ask you what you learned from particular operations. It's nice to have a bit more info which
-          you can put over here. It'll also help you remember what each procedure involved.</p>
-        <p class="text-left">Remember, you can edit anything whenever you like.</p>
-        <form [formGroup]="slideFourForm">
-          <ion-item>
-            <ion-textarea placeholder="Eg: Steps of the procedure, things you learnt, intersting nuggets from the consultant etc." formControlName="rememberText"></ion-textarea>
-          </ion-item>
-          <p class="form-title">Things to look up</p>
-          <ion-item-sliding *ngFor="let thing of thingsToLookUp; let i=index;">
-            <ion-item>
-              <span>{{thing}}</span>
-              <ion-icon name="list" item-right clear></ion-icon>
-            </ion-item>
-            <ion-item-options side="right">
-              <button ion-button color="danger" (tap)="thingsToLookUp.splice(i,1)">
-                Delete
-              </button>
-              <button ion-button color="primary" (tap)="singleThingToLookUp = thing; thingsToLookUp.splice(i,1)">
-                Edit
-              </button>
-            </ion-item-options>
-          </ion-item-sliding>
-          <ion-item class="add-task">
-            <ion-input type="text" placeholder="Closed Up" [(ngModel)]="singleThingToLookUp" [ngModelOptions]="{standalone: true}"></ion-input>
-            <button item-right ion-button outline (touchend)="preventBlur($event)" [disabled]="!singleThingToLookUp || singleThingToLookUp.length == 0" (tap)="addsingleThingToLookUp(singleThingToLookUp); singleThingToLookUp = ''">Add</button>
-          </ion-item>
-        </form>
-        <div class="btn-container">
-          <button ion-button full large color="secondary" [disabled]="slideFourForm.invalid" (tap)="save()">Finish and Save</button>
+        <div margin-top class="centerAlign">
+            <div *ngFor="let data of [1,2,3,4] ; let i=index;" class="pagination-bullet" [ngClass]="{'pagination-bullet-active':(i==3)? true : false}"></div>
         </div>
-      </ion-list>
-    </ion-slide>
+    </ion-list>
+</ion-slide>
 
-  </ion-slides>
+</ion-slides>
 </ion-content>

@@ -31,7 +31,8 @@ plugins/android.json
 plugins/ios.json
 www/
 $RECYCLE.BIN/
-
+nbproject/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+/nbproject/private/
