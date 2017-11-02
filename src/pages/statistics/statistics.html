@@ -1,58 +1,64 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Satatistics</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Satatistics</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <p class="text-center" *ngIf="statisticsSpinner">
+    <p class="text-center" *ngIf="statisticsSpinner">
     <ion-spinner name="bubbles"></ion-spinner>
-  </p>
-  <ion-row class="report-devider">
+</p>
+<ion-row class="report-devider">
     <ion-col col-12>
-      <p class="title">At a Glance</p>
+        <p class="title">At a Glance</p>
     </ion-col>
-  </ion-row>
-  <ion-row class="dashboard-cards" *ngIf="statisticsData">
+</ion-row>
+<ion-row class="dashboard-cards" *ngIf="statisticsData">
     <ion-col col-4>
-      <div class="dashboard-card operations">
-        <p class="title">Operations</p>
-        <p class="title-text">{{statisticsData.totalOperations}}</p>
-      </div>
-    </ion-col>
-    <ion-col col-4>
-      <div class="dashboard-card scrubbed-in">
-        <p class="title">Scrubbed in</p>
-        <p class="title-text">{{statisticsData.scrubbedIn}}</p>
-      </div>
+        <div class="dashboard-card operations">
+            <p class="title">Operations</p>
+            <p class="title-text">{{statisticsData.totalOperations}}</p>
+        </div>
     </ion-col>
     <ion-col col-4>
-      <div class="dashboard-card time-spent">
-        <p class="title">Time spent in surgery</p>
-        <p class="title-text">{{statisticsData.totalTimeInSurgery}}h</p>
-      </div>
+        <div class="dashboard-card scrubbed-in">
+            <p class="title">Scrubbed in</p>
+            <p class="title-text">{{statisticsData.scrubbedIn}}</p>
+        </div>
     </ion-col>
     <ion-col col-4>
-      <button ion-button small color="light">See More</button>
+        <div class="dashboard-card time-spent">
+            <p class="title">Time spent in surgery</p>
+            <p class="title-text">{{statisticsData.totalTimeInSurgery}}h</p>
+        </div>
     </ion-col>
-  </ion-row>
-  <ion-row class="report-devider">
+    <ion-col col-4>
+        <button ion-button small outline color="gray">See More</button>
+    </ion-col>
+</ion-row>
+<ion-row class="report-devider">
     <ion-col col-12>
-      <p class="title">Favourite Specialities</p>
+        <p class="title">Favourite Specialities</p>
     </ion-col>
-  </ion-row>
-  <ion-list class="list" *ngIf="statisticsData && statisticsData.favouriteSpecialities">
-    <ion-item *ngFor="let speciality of statisticsData.favouriteSpecialities;">
-      <ion-avatar item-start>
-        <img src="assets/imgs/{{speciality.showData.icon}}">
-      </ion-avatar>
-      <h2>{{speciality.showData.name}}</h2>
-      <p>{{speciality.totalOperation}} Operations ({{speciality.totalTimeInSurgery}}hours)</p>
+</ion-row>
+<div class="center" margin-top margin-bottom><ion-badge  *ngIf="statisticsData && !statisticsData.length">No Specialities Found</ion-badge></div>
+<ion-list class="list" *ngIf="statisticsData && statisticsData.length && statisticsData.favouriteSpecialities">
+          <ion-item *ngFor="let speciality of statisticsData.favouriteSpecialities;">
+        <ion-avatar item-start>
+            <img src="assets/imgs/{{speciality.showData.icon}}">
+        </ion-avatar>
+        <h2>{{speciality.showData.name}}</h2>
+        <p>{{speciality.totalOperation}} Operations ({{speciality.totalTimeInSurgery}}hours)</p>
     </ion-item>
-  </ion-list>
-  <ion-row>
+</ion-list>
+<ion-row class="report-devider">
     <ion-col col-12>
-      <canvas #lineCanvas></canvas>
+        <p class="title">Time Spent in Theatre</p>
     </ion-col>
-  </ion-row>
+</ion-row>
+<ion-row>
+    <ion-col col-12>
+        <canvas #lineCanvas></canvas>
+    </ion-col>
+</ion-row>
 </ion-content>

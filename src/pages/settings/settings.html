@@ -16,7 +16,7 @@
     <ion-row>
       <ion-col col-12 class="report-header">
         <ion-icon name="person"></ion-icon>
-        <h4>{{userSettingData.name}}</h4>
+        <h4 text-capitalize>{{userSettingData.name}}</h4>
       </ion-col>
     </ion-row>
     <ion-row class="report-container">
@@ -54,11 +54,11 @@
       <ion-col col-12>
         <ion-item>
           <ion-label>General Announcements</ion-label>
-          <ion-checkbox color="dark" [disabled]="true" checked="{{userSettingData.generalAnnouncements}}"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="userSettingData.generalAnnouncements" (ionChange)="PreferencesUpdate(userSettingData)"></ion-checkbox>
         </ion-item>
         <ion-item>
           <ion-label>Emails from our partners</ion-label>
-          <ion-checkbox color="dark" [disabled]="true" checked="{{userSettingData.emailFromPartners}}"></ion-checkbox>
+          <ion-checkbox  [(ngModel)]="userSettingData.emailFromPartners" (ionChange)="PreferencesUpdate(userSettingData)"></ion-checkbox>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -69,17 +69,17 @@
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-12>
-        <ion-item>
-          <ion-label>Email</ion-label>
+        <ion-item no-lines>
+          <ion-label class="inputLable">Email</ion-label>
           <ion-input [disabled]="true" [ngModel]="userDetails.email" placeholder="Text Input"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row class="report-container">
       <ion-col col-12>
-        <ion-item>
-          <ion-label>Password</ion-label>
-          <ion-input placeholder="Text Input" type="password" value="password"></ion-input>
+        <ion-item no-lines>
+          <ion-label class="inputLable">Password</ion-label>
+          <ion-input [disabled]="true" placeholder="Text Input" type="password" value="password"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

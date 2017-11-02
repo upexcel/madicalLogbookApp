@@ -86,7 +86,7 @@
         <p class="title-text">{{logData.rememberText}}</p>
       </ion-col>
     </ion-row>
-    <ion-row class="report-devider">
+    <ion-row class="report-devider" *ngIf="logData && logData.thingsToLookUp && logData.thingsToLookUp.length">
       <ion-col col-12>
         <p class="title">Things to look up</p>
       </ion-col>
