@@ -45,7 +45,7 @@
 <ion-list class="list" *ngIf="statisticsData && statisticsData.favouriteSpecialities">
           <ion-item *ngFor="let speciality of statisticsData.favouriteSpecialities;">
         <ion-avatar item-start>
-            <img src="././assets/imgs/{{speciality.showData.icon}}">
+            <img src="assets/imgs/{{speciality.showData.icon}}">
         </ion-avatar>
         <h2>{{speciality.showData.name}}</h2>
         <p>{{speciality.totalOperation}} Operations ({{speciality.totalTimeInSurgery}}hours)</p>
