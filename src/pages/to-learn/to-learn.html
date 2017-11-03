@@ -18,7 +18,7 @@
     <ion-list class="todos-list" *ngIf="todos && activeHeading">
         <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
             <ion-item *ngIf="todo.completed">
-                <ion-label>{{todo.todo}}</ion-label>
+                <ion-label text-capitalize>{{todo.todo}}</ion-label>
                 <ion-checkbox color="dark" [(ngModel)]="todo.completed" (ngModelChange)="todoUpdate(todo)" item-start></ion-checkbox>
                 <ion-avatar item-end>
                     <img src="assets/imgs/{{todo.speciality}}.png">
@@ -34,7 +34,7 @@
     <ion-list class="todos-list" *ngIf="todos && !activeHeading">
         <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
             <ion-item *ngIf="!todo.completed">
-                <ion-label>{{todo.todo}}</ion-label>
+                <ion-label text-capitalize>{{todo.todo}}</ion-label>
                 <ion-checkbox color="dark" [(ngModel)]="todo.completed" (ngModelChange)="todoUpdate(todo)" item-start></ion-checkbox>
                 <ion-avatar item-end>
                     <img src="assets/imgs/{{todo.speciality}}.png">
