@@ -16,6 +16,7 @@ export class SettingsPage implements OnInit {
     userDetails: any;
     userSettingData: any;
     currentYear: number;
+    count: number = 0;
     constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) {}
 
     ngOnInit() {}
@@ -44,10 +45,14 @@ export class SettingsPage implements OnInit {
     }
 
     editprofile() {
-        let editSettingsModel = this.modalCtrl.create(EditSettingsPage, {useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData});
-        editSettingsModel.present();
-        editSettingsModel.onDidDismiss((data) => {
-        })
+        if (this.count == 0) {
+            this.count++;
+            let editSettingsModel = this.modalCtrl.create(EditSettingsPage, {useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData});
+            editSettingsModel.present();
+            editSettingsModel.onDidDismiss((data) => {
+                this.count = 0;
+            })
+        }
     }
     PreferencesUpdate(preferences) {
         this.afoDatabase.list('/users').update(this.userDetails['uid'], preferences);
