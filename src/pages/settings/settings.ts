@@ -37,7 +37,6 @@ export class SettingsPage implements OnInit {
                 this.userSettingData = config.defaultUserDetails;
             }
             if (user.length == 0) {
-                console.log("user.length", user.length)
                 this.editprofile();
             }
         }, (err) => {
