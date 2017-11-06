@@ -36,23 +36,17 @@ export class SettingsPage implements OnInit {
             } else {
                 this.userSettingData = config.defaultUserDetails;
             }
-            if (user.length == 0) {
-                this.editprofile();
-            }
         }, (err) => {
             console.log(err)
         });
     }
 
     editprofile() {
-        if (this.count == 0) {
-            this.count++;
-            let editSettingsModel = this.modalCtrl.create(EditSettingsPage, {useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData});
-            editSettingsModel.present();
-            editSettingsModel.onDidDismiss((data) => {
-                this.count = 0;
-            })
-        }
+        let editSettingsModel = this.modalCtrl.create(EditSettingsPage, {useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData});
+        editSettingsModel.present();
+        editSettingsModel.onDidDismiss((data) => {
+            this.count = 0;
+        })
     }
     PreferencesUpdate(preferences) {
         this.afoDatabase.list('/users').update(this.userDetails['uid'], preferences);
