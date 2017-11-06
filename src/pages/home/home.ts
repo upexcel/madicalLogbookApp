@@ -40,7 +40,7 @@ export class HomePage implements OnInit {
             yAxes: [{
               ticks: {
                 callback: (value, index, values) => {
-                  return `${value}h`;
+                  return `${value.toFixed(1)}h`;
                 }
               }
             }]
