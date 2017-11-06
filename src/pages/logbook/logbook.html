@@ -15,7 +15,7 @@
     <p class="divider-title">Filter</p>
     <ion-searchbar padding class="logbook-search-box" [(ngModel)]="searchLogText" [showCancelButton]="true" (ionInput)="searchLog($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
     <p class="divider-title">Logbook</p>
-    <div class="centerAlign" margin-top margin-bottom><ion-badge  *ngIf="logbookLogs && !logbookLogs.length">No Logs Found</ion-badge></div>
+    <div class="centerAlign" margin-top margin-bottom *ngIf="logbookLogs && !logbookLogs.length"><ion-badge>No Logs Found</ion-badge></div>
     <ion-list class="logbook-list" *ngIf="logbookLogs">
         <ion-item *ngFor="let log of logbookLogs; trackBy: trackLogs" (tap)="logSelected(log)">
             <ion-avatar item-start>
