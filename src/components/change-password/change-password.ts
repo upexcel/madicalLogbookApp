@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirebaseService } from '../../providers/firebase/firebase-service';
+import {Component} from '@angular/core';
+import {ViewController} from 'ionic-angular';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FirebaseService} from '../../providers/firebase/firebase-service';
 
 @Component({
     selector: 'change-password',
@@ -15,6 +15,7 @@ export class ChangePassword {
     }
     ngOnInit() {
         this.changePasswordForm = this.formBuilder.group({
+            'oldPassword': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
             'newPassword': [null, Validators.compose([Validators.required, Validators.minLength(5)])]
         })
     }
@@ -22,13 +23,19 @@ export class ChangePassword {
     changePassword(form) {
         if (form.valid) {
             this.updateSpinner = true;
-            this._firebase.updatePassword(form.value['newPassword']).then((data) => {
+            let detail = this._firebase.getLoggedUser();
+            this._firebase.loginUserWithEmailPassword(detail['email'], form.value['oldPassword']).then((user) => {
+                this._firebase.updatePassword(form.value['newPassword']).then((data) => {
+                    this.updateSpinner = false;
+                    this._viewCtrl.dismiss();
+                }).catch((error) => {
+                    this.updateSpinner = false;
+                    this.errorMessage = error.message;
+                });
+            }, (err) => {
                 this.updateSpinner = false;
-                this._viewCtrl.dismiss();
-            }).catch((error) => {
-                this.updateSpinner = false;
-                this.errorMessage = error.message;
-            });
+                this.errorMessage = err['message'];
+            })
         }
     }
 
