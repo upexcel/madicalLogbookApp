@@ -7,6 +7,7 @@ import { AngularFireOfflineModule } from 'angularfire2-offline';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Toast } from '@ionic-native/toast';
 
 import { LogbookPage } from '../pages/logbook/logbook';
 import { ToLearnPage } from '../pages/to-learn/to-learn';
@@ -77,6 +78,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AngularFireAuth,
     FirebaseService,
     GooglePlus,
+    Toast,
     HomeService
   ]
 })
