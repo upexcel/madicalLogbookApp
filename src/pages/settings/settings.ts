@@ -17,6 +17,7 @@ export class SettingsPage implements OnInit {
     userSettingData: any;
     currentYear: number;
     count: number = 0;
+    loginType=localStorage.getItem('loginType');
     constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) {}
 
     ngOnInit() {}
