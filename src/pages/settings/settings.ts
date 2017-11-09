@@ -23,7 +23,7 @@ export class SettingsPage implements OnInit {
     ngOnInit() {}
 
     ionViewWillEnter() {
-        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));;
+        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));
         const dateObject = new Date();
         this.currentYear = dateObject.getFullYear();
         this.afoDatabase.list('/users', {

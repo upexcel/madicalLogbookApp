@@ -104,7 +104,6 @@ export class HomeService {
     }
     getChartDataViaYear(data, year) {
         const logsData = JSON.parse(JSON.stringify(data));
-        console.log("logsData", logsData)
         _.forEach(logsData, (value, key) => {
             value['Year'] = moment(value['date']).format('YYYY')
         })
@@ -116,7 +115,6 @@ export class HomeService {
             })
             newData[key] = Math.ceil(totalTimeInSurgery / 60);
         })
-        console.log(newData)
         let years = [];
         for (var i = 0; i < year; i++) {
             years.push({

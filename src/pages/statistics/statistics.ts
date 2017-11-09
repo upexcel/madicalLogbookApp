@@ -16,7 +16,6 @@ export class StatisticsPage implements OnInit {
 
     ngOnInit() {}
     yearChart(year) {
-        console.log("year",year)
         this._homeService.getHomePageData(year).then((statisticsData: any) => {
             this.statisticsSpinner = false;
             this.statisticsData = statisticsData;
