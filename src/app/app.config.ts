@@ -20,6 +20,7 @@ export const config = {
         { 'name': 'Trauma & Orthopaedic', 'value': 'trauma&orthopaedic', 'icon': 'trauma&orthopaedic.png' },
         { 'name': 'Urology', 'value': 'Urology', 'icon': 'Urology.png' },
         { 'name': 'Vascular', 'value': 'Vascular', 'icon': 'Vascular.png' },
+        { 'name': 'Other', 'value': 'Other', 'icon': 'Other.png' },
     ],
     defaultUserDetails: {
         name: '',
