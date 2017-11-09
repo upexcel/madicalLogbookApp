@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { config } from '../../app/app.config';
-import { AngularFireOfflineDatabase } from 'angularfire2-offline/database'
-import { FirebaseService } from '../../providers/firebase/firebase-service';
+import {config} from '../../app/app.config';
+import {AngularFireOfflineDatabase} from 'angularfire2-offline/database'
+import {FirebaseService} from '../../providers/firebase/firebase-service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Injectable()
 export class HomeService {
     userDetails: any;
-    constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase) { }
+    constructor(public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase) {}
 
-    getHomePageData() {
+    getHomePageData(year?) {
         this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));
         return new Promise((resolve, reject) => {
             const homeData = {
@@ -25,7 +25,7 @@ export class HomeService {
                     equalTo: this.userDetails['uid']
                 }
             }).subscribe((res) => {
-                homeData['chartData'] = this.getChartData(res);
+                homeData['chartData'] = year && year > 1 ? this.getChartDataViaYear(res, year) : this.getChartData(res);
                 homeData['favouriteSpecialities'] = this.getFavouriteSpecialities(res);
                 homeData['totalOperations'] = res.length;
                 let scrubbedIn = 0;
@@ -53,9 +53,9 @@ export class HomeService {
 
     getFavouriteSpecialities(res) {
         const newData = _.groupBy(res, 'speciality');
-        let data = []
+        let data = [];
         _.forEach(newData, (value, key) => {
-            const index = _.findIndex(config['specialityList'], { 'value': key });
+            const index = _.findIndex(config['specialityList'], {'value': key});
             let totalTimeInSurgery = 0;
             _.forEach(value, (value1, key1) => {
                 totalTimeInSurgery += this.getTimeDifference(value1);
@@ -66,7 +66,8 @@ export class HomeService {
                 totalTimeInSurgery: Math.ceil(totalTimeInSurgery / 60)
             })
         })
-        return data;
+        let order = _.orderBy(data, 'totalOperation', 'desc')
+        return order;
     }
 
     getChartData(data) {
@@ -101,5 +102,38 @@ export class HomeService {
         })
         return finalData;
     }
-
+    getChartDataViaYear(data, year) {
+        const logsData = JSON.parse(JSON.stringify(data));
+        console.log("logsData", logsData)
+        _.forEach(logsData, (value, key) => {
+            value['Year'] = moment(value['date']).format('YYYY')
+        })
+        const newData = _.groupBy(logsData, 'Year');
+        _.forEach(newData, (value, key) => {
+            let totalTimeInSurgery = 0;
+            _.forEach(value, (value1, key1) => {
+                totalTimeInSurgery += this.getTimeDifference(value1);
+            })
+            newData[key] = Math.ceil(totalTimeInSurgery / 60);
+        })
+        console.log(newData)
+        let years = [];
+        for (var i = 0; i < year; i++) {
+            years.push({
+                Year: moment().subtract(i, 'year').format('YYYY'),
+                lable: moment().subtract(i, 'year').format('YYYY'),
+                count: 0
+            })
+        }
+        years = years.reverse();
+        const finalData = {
+            labels: [],
+            data: []
+        }
+        _.forEach(years, (value, key) => {
+            finalData.labels.push(value['lable'])
+            finalData.data.push(newData[value.Year] || 0)
+        })
+        return finalData;
+    }
 }

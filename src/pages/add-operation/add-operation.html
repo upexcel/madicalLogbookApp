@@ -15,13 +15,13 @@
 <ion-content>
     <ion-slides pager='false' #addOperationSlider>
 
-                <ion-slide>
+        <ion-slide>
             <p class="form-title">Housekeeping</p>
             <ion-list>
                 <form [formGroup]="slideOneForm">
                     <ion-item>
-                        <ion-label floating>Date</ion-label>
-                        <ion-datetime formControlName="date" min="{{currentYear}}" max="{{currentYear + 10}}" displayFormat="DD/MM/YYYY"></ion-datetime>
+                        <ion-label floating>Date <span class="danger">*</span></ion-label>
+                        <ion-datetime formControlName="date"  min="{{currentYear}}" max="{{currentYear + 10}}" displayFormat="DD/MM/YYYY"></ion-datetime>
                     </ion-item>
                     <ion-item>
                         <ion-label floating>Patient Number</ion-label>
@@ -48,21 +48,21 @@
 
                 <form [formGroup]="slideTwoForm">
                     <ion-item>
-                        <ion-label>Speciality</ion-label>
+                        <ion-label>Speciality <span class="danger">*</span></ion-label>
                         <ion-select formControlName="speciality">
                             <ion-option *ngFor="let Speciality of specialityList" value="{{Speciality.value}}">{{Speciality.name}}</ion-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
-                        <ion-label floating>Procedure</ion-label>
+                        <ion-label floating>Procedure <span class="danger">*</span></ion-label>
                         <ion-input formControlName="procedure" type="text"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label floating>Start Time</ion-label>
+                        <ion-label floating>Start Time <span class="danger">*</span></ion-label>
                         <ion-datetime formControlName="startTime" displayFormat="HH:mm"></ion-datetime>
                     </ion-item>
                     <ion-item>
-                        <ion-label floating>End Time</ion-label>
+                        <ion-label floating>End Time <span class="danger">*</span></ion-label>
                         <ion-datetime formControlName="endTime" displayFormat="HH:mm"></ion-datetime>
                     </ion-item>
                 </form>
