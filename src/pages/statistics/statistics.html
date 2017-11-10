@@ -39,7 +39,7 @@
     </ion-col>
 </ion-row>
 <div class="center" margin-top margin-bottom><ion-badge  *ngIf="statisticsData && !statisticsData.favouriteSpecialities.length">No Specialities Found</ion-badge></div>
-<ion-list class="list" *ngIf="statisticsData && statisticsData.favouriteSpecialities">
+<ion-list no-margin class="list" *ngIf="statisticsData && statisticsData.favouriteSpecialities">
           <span *ngFor="let speciality of statisticsData.favouriteSpecialities | slice:0:3">
         <ion-item *ngIf="speciality && speciality.showData">
             <ion-avatar item-start>
