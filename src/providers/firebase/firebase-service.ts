@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
-import { GooglePlus } from '@ionic-native/google-plus';
-import { Platform } from 'ionic-angular';
-import { config } from '../../app/app.config';
+import {Observable} from 'rxjs/Observable';
+import {GooglePlus} from '@ionic-native/google-plus';
+import {Platform} from 'ionic-angular';
+import {config} from '../../app/app.config';
 
 @Injectable()
 export class FirebaseService {
@@ -18,6 +18,7 @@ export class FirebaseService {
                 this.userDetails = user;
                 localStorage.setItem('userDetails', JSON.stringify(user));
             } else {
+                localStorage.removeItem('loginType');
                 localStorage.removeItem('userDetails');
                 this.userDetails = null;
             }
@@ -45,6 +46,7 @@ export class FirebaseService {
     }
 
     logout() {
+        localStorage.removeItem('loginType');
         return this._firebaseAuth.auth.signOut();
     }
 

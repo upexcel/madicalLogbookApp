@@ -7,15 +7,32 @@
     <div class="content-top-header">
         <ion-grid>
             <ion-row>
-                <ion-col col-6 class="heading1" [ngClass]="{'active': !activeHeading}" (tap)="activeHeading = false">Remaining</ion-col>
-                <ion-col col-6 class="heading2" [ngClass]="{'active': activeHeading}" (tap)="activeHeading = true">Completed</ion-col>
+                <ion-col col-4 class="heading1" [ngClass]="{'active': activeHeading.all}" (tap)="active('all')">All</ion-col>
+                <ion-col col-4 [ngClass]="{'active': activeHeading.remaining}" (tap)="active('remaining')">Remaining</ion-col>
+                <ion-col col-4 class="heading2" [ngClass]="{'active': activeHeading.completed}" (tap)="active('completed')">Completed</ion-col>
             </ion-row>
         </ion-grid>
     </div>
 </ion-header>
 
 <ion-content>
-    <ion-list class="todos-list" *ngIf="todos && activeHeading">
+        <ion-list class="todos-list" *ngIf="todos && activeHeading.all">
+        <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
+            <ion-item>
+                <ion-label text-capitalize>{{todo.todo}}</ion-label>
+                <ion-checkbox color="dark" [(ngModel)]="todo.completed" (ngModelChange)="todoUpdate(todo)" item-start></ion-checkbox>
+                <ion-avatar item-end>
+                    <img src="assets/imgs/{{todo.speciality}}.png">
+                </ion-avatar>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="danger" (tap)="deleteTodo(todo)">
+                    Delete
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-list class="todos-list" *ngIf="todos && activeHeading.completed">
         <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
             <ion-item *ngIf="todo.completed">
                 <ion-label text-capitalize>{{todo.todo}}</ion-label>
@@ -31,7 +48,7 @@
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
-    <ion-list class="todos-list" *ngIf="todos && !activeHeading">
+    <ion-list class="todos-list" *ngIf="todos && activeHeading.remaining">
         <ion-item-sliding *ngFor="let todo of todos; trackBy: todoTrack">
             <ion-item *ngIf="!todo.completed">
                 <ion-label text-capitalize>{{todo.todo}}</ion-label>

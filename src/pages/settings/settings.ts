@@ -16,12 +16,14 @@ export class SettingsPage implements OnInit {
     userDetails: any;
     userSettingData: any;
     currentYear: number;
+    count: number = 0;
+    loginType=localStorage.getItem('loginType');
     constructor(public navCtrl: NavController, public _firebaseService: FirebaseService, public afoDatabase: AngularFireOfflineDatabase, public modalCtrl: ModalController, public afAuth: AngularFireAuth, public popoverCtrl: PopoverController, public app: App) {}
 
     ngOnInit() {}
 
     ionViewWillEnter() {
-        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));;
+        this.userDetails = this._firebaseService.getLoggedUser() || JSON.parse(localStorage.getItem('userDetails'));
         const dateObject = new Date();
         this.currentYear = dateObject.getFullYear();
         this.afoDatabase.list('/users', {
@@ -32,11 +34,10 @@ export class SettingsPage implements OnInit {
         }).subscribe((user) => {
             if (user.length > 0) {
                 this.userSettingData = user[0];
+                localStorage.setItem('profileDetails', JSON.stringify(this.userSettingData));
             } else {
                 this.userSettingData = config.defaultUserDetails;
-            }
-            if (user.length == 0) {
-                this.editprofile();
+                localStorage.setItem('profileDetails', JSON.stringify(this.userSettingData));
             }
         }, (err) => {
             console.log(err)
@@ -47,6 +48,7 @@ export class SettingsPage implements OnInit {
         let editSettingsModel = this.modalCtrl.create(EditSettingsPage, {useruid: this.userDetails['uid'], userEmail: this.userDetails['email'], userSettingData: this.userSettingData});
         editSettingsModel.present();
         editSettingsModel.onDidDismiss((data) => {
+            this.count = 0;
         })
     }
     PreferencesUpdate(preferences) {
